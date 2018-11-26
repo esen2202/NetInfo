@@ -45,6 +45,7 @@ namespace NetInfo
             Console.WriteLine("  APIPA enabled...................... : {0}", adapter.IsAutomaticPrivateAddressingEnabled);
             Console.WriteLine("  Forwarding enabled................. : {0}", adapter.IsForwardingEnabled);
             Console.WriteLine("  Uses WINS ......................... : {0}", adapter.UsesWins);
+            Console.WriteLine("  DHCP enabled....................... : {0}", adapter.IsDHCPEnabled);
             Console.WriteLine();
         }
     }

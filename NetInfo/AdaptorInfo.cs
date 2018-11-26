@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
 namespace NetInfo
 {
-    class AdapterInfo
+    public class AdapterInfo
     {
         private static AdapterInfo adapterInfo;
         private static object objLock = new object();
@@ -70,7 +71,9 @@ namespace NetInfo
                             IsAutomaticPrivateAddressingActive = adapterPropV4.IsAutomaticPrivateAddressingActive,
                             IsAutomaticPrivateAddressingEnabled = adapterPropV4.IsAutomaticPrivateAddressingEnabled,
                             IsForwardingEnabled = adapterPropV4.IsForwardingEnabled,
-                            UsesWins = adapterPropV4.UsesWins
+                            UsesWins = adapterPropV4.UsesWins,
+                            IsDHCPEnabled = adapterPropV4.IsDhcpEnabled
+                           
                         });
                     }
                 }
@@ -79,7 +82,7 @@ namespace NetInfo
         }
     }
 
-    class AdapterObject
+    public class AdapterObject
     {
 
         #region Base Info
@@ -226,6 +229,26 @@ namespace NetInfo
             set { usesWins = value; }
         }
 
+        private bool isDHCPEnabled;
+
+        public bool IsDHCPEnabled
+        {
+            get { return isDHCPEnabled; }
+            set { isDHCPEnabled = value; }
+        }
+
         #endregion
+    }
+
+    public static class AdapterSettings
+    {
+        public static void StartNetworkConnections()
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo("NCPA.cpl");
+            startInfo.UseShellExecute = true;
+
+            Process.Start(startInfo);
+        }
+
     }
 }

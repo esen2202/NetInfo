@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetInfo", "NetInfo\NetInfo.csproj", "{B6E909B5-CB68-4151-9ECD-BCE88074F365}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAda", "NetAda\NetAda.csproj", "{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B6E909B5-CB68-4151-9ECD-BCE88074F365}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6E909B5-CB68-4151-9ECD-BCE88074F365}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6E909B5-CB68-4151-9ECD-BCE88074F365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
