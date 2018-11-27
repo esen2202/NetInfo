@@ -16,6 +16,8 @@ namespace NetAda.UC
             InitializeComponent();
 
             IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
+
+           
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -33,6 +35,17 @@ namespace NetAda.UC
         {
             iconDHCP.Kind = status ? MaterialDesignThemes.Wpf.PackIconKind.Check : MaterialDesignThemes.Wpf.PackIconKind.Cancel;
             iconDHCP.Foreground = status? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
+            ExpAdapter.IsExpanded = status;
+        }
+
+        private void BtnCopyIPAddress_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbIPAddress.Text);
+        }
+
+        private void BtnCopyGateway_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbGateway.Text);
         }
     }
 }

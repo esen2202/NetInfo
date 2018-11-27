@@ -1,27 +1,13 @@
 ﻿using NetInfo;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace NetAda
+namespace NetAda.Views
 {
 
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         #region Acrylic
         internal enum AccentState
@@ -82,54 +68,7 @@ namespace NetAda
         }
 
         #endregion
-
-        private static AdapterInfo adapterInfo;
-
-        private ListAdapter listAdapter;
-
-        public ListAdapter ListAdapter 
-        {
-            get { return listAdapter; }
-            set { listAdapter = value; }
-        }
-
-        private void ListAdapter_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            PropertyChangedEvent("ListAdapter");
-        }
-
-        private void PropertyChangedEvent(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-
-        private void GetAdapterList()
-        {
-            if (adapterInfo != null) adapterInfo.RefreshInfos();
-
-            adapterInfo = AdapterInfo.CreateInstance();
-            ListAdapter = new ListAdapter();
-
-            adapterInfo.listAdapter.ForEach(adapter =>
-            {
-                var adp = ListAdapter.Where(x => x.Description == adapter.Description).FirstOrDefault();
-                if (adp != null)
-                {
-                    adp.IsDHCPEnabled = adapter.IsDHCPEnabled;
-                }
-                else
-                {
-                    ListAdapter.Add(adapter);
-                }
-               
-            });
-
-        }
-
+   
         public MainWindow()
         {
             InitializeComponent();
@@ -137,14 +76,11 @@ namespace NetAda
             this.Left = System.Windows.SystemParameters.PrimaryScreenWidth - this.Width;
             this.Top = 0;
 
-            this.DataContext = this;
-
-            GetAdapterList();
+            this.DataContext = new ViewModels.ViewModelMainWindow();
 
             TopMostIconChanger();
+
         }
-
-
 
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
@@ -164,8 +100,6 @@ namespace NetAda
 
         private void BtnRefresh_Click(object sender, RoutedEventArgs e)
         {
-            GetAdapterList();
-           
 
         }
 
@@ -186,11 +120,5 @@ namespace NetAda
         }
     }
 
-    public class ListAdapter : ObservableCollection<AdapterObject>
-    {
-        public ListAdapter() : base()
-        {
 
-        }
-    }
 }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
 
 namespace NetAda
 {
@@ -13,5 +14,14 @@ namespace NetAda
     /// </summary>
     public partial class App : Application
     {
+        TaskbarIcon taskbarIcon = new TaskbarIcon()
+        {
+
+        };
+
+        public App()
+        {
+                
+        }
     }
 }

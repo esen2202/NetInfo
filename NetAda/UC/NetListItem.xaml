@@ -12,7 +12,8 @@
     </UserControl.Resources>
     <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0"   Width="320" CornerRadius="10" >
 
-        <Expander  HorizontalAlignment="Stretch"
+        <Expander Name="ExpAdapter"
+            HorizontalAlignment="Stretch"
             Foreground="#FFFFB900" Margin="0,0,0,0" Background="{x:Null}">
             <Expander.Header>
                 <HeaderedContentControl Margin="0" Padding="0" >
@@ -58,7 +59,7 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" Grid.Row="0"  >
-                    <TextBlock Text="{Binding IpAddress,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="TxbIPAddress"  Text="{Binding IpAddress,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" Grid.Row="1"  >
@@ -68,7 +69,7 @@
                 <DockPanel Grid.Column="1" Grid.Row="2"  >
                     <TextBlock  Foreground="White" VerticalAlignment="Center" FontSize="14">
                      <Hyperlink NavigateUri="{Binding Gateway, Converter={StaticResource FormatConverter}, ConverterParameter='http://{0}', FallbackValue='0.0.0.0'}" RequestNavigate="Hyperlink_RequestNavigate" >
-                        <TextBlock Text="{Binding Gateway,  FallbackValue='0.0.0.0'}" Foreground="White" />
+                        <TextBlock Name="TxbGateway" Text="{Binding Gateway,  FallbackValue='0.0.0.0'}" Foreground="White" />
                      </Hyperlink>
                     </TextBlock>
                 </DockPanel>
@@ -78,7 +79,7 @@
                     <Border CornerRadius="4" >
                         <DockPanel>
                             <materialDesign:PackIcon Name="iconDHCP" Kind="Check" Foreground="#FFFF6159" Width="20" Height="20"/>
-                            <CheckBox Name="chkIsDHCPEnabled"  IsChecked="{Binding IsDHCPEnabled}"  Checked="ChkIsDHCPEnabled_Checked" Visibility="Collapsed"/>
+                            <CheckBox Name="chkIsDHCPEnabled"  IsChecked="{Binding IsDHCPEnabled}"  Checked="ChkIsDHCPEnabled_Checked" Visibility="Visible"/>
                         </DockPanel>
                        
                     </Border>
@@ -86,16 +87,16 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
-                            materialDesign:RippleAssist.IsCentered="True">
+                    <Button Name="BtnCopyIPAddress"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                            materialDesign:RippleAssist.IsCentered="True"  Click="BtnCopyIPAddress_OnClick" >
                         <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
                     </Button>
 
                 </DockPanel>
 
                 <DockPanel Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Button Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
-                            materialDesign:RippleAssist.IsCentered="True">
+                    <Button Name="BtnCopyGateway"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                            materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyGateway_OnClick">
                         <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
                     </Button>
                 </DockPanel>

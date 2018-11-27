@@ -38,6 +38,9 @@
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -69,10 +72,13 @@
     </ApplicationDefinition>
     <Compile Include="Classes\BindProcess.cs" />
     <Compile Include="Converters\Formatter.cs" />
+    <Compile Include="Commands\Generic\RelayCommand.cs" />
+    <Compile Include="ViewModels\ViewModelMainWindow.cs" />
     <Compile Include="UC\NetListItem.xaml.cs">
       <DependentUpon>NetListItem.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -80,7 +86,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     <Resource Include="Assets\icons\16x16_white_wifi.png" />
     <Resource Include="Assets\icons\32x32_white_wifi.png" />
     <Resource Include="Assets\icons\64x64_white_wifi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\icons\star.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
