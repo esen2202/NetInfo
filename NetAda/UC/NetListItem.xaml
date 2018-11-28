@@ -79,7 +79,7 @@
                     <Border CornerRadius="4" >
                         <DockPanel>
                             <materialDesign:PackIcon Name="iconDHCP" Kind="Check" Foreground="#FFFF6159" Width="20" Height="20"/>
-                            <CheckBox Name="chkIsDHCPEnabled"  IsChecked="{Binding IsDHCPEnabled}"  Checked="ChkIsDHCPEnabled_Checked" Visibility="Visible"/>
+                            <CheckBox Name="chkIsDHCPEnabled"  IsChecked="{Binding IsDHCPEnabled}"  Unchecked="ChkIsDHCPEnabled_Checked" Checked="ChkIsDHCPEnabled_Checked" Visibility="Visible"/>
                         </DockPanel>
                        
                     </Border>

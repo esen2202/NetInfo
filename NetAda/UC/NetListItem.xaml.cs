@@ -15,9 +15,9 @@ namespace NetAda.UC
         {
             InitializeComponent();
 
-            IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
+            //IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
+            IsDHCPIconChanger(true);
 
-           
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -28,13 +28,13 @@ namespace NetAda.UC
 
         private void ChkIsDHCPEnabled_Checked(object sender, RoutedEventArgs e)
         {
-            IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
+            //IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
         }
 
         private void IsDHCPIconChanger(bool status)
         {
             iconDHCP.Kind = status ? MaterialDesignThemes.Wpf.PackIconKind.Check : MaterialDesignThemes.Wpf.PackIconKind.Cancel;
-            iconDHCP.Foreground = status? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
+            iconDHCP.Foreground = status ? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
             ExpAdapter.IsExpanded = status;
         }
 

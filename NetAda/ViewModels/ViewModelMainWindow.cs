@@ -13,15 +13,29 @@ namespace NetAda.ViewModels
         private static AdapterInfo adapterInfo;
 
         private ObservableCollection<AdapterObject> _listAdapter;
+
         public ObservableCollection<AdapterObject> ListAdapter
         {
-            get { return _listAdapter;}
+            get { return _listAdapter; }
             set
             {
                 _listAdapter = value;
-                base.OnPropertyChanged(()=>ListAdapter);
+                base.OnPropertyChanged(() => ListAdapter);
             }
         }
+
+        private AdapterObject _currentAdapter;
+
+        public AdapterObject CurrentAdapter
+        {
+            get { return _currentAdapter; }
+            set
+            {
+                _currentAdapter = value;
+                base.OnPropertyChanged(() => CurrentAdapter);
+            }
+        }
+
 
         public ViewModelMainWindow()
         {
@@ -51,10 +65,31 @@ namespace NetAda.ViewModels
 
         }
 
-
-
-
         #region ICommand
+        private ICommand _selectNetAdaptCommand;
+        public ICommand SelectNetAdaptCommand
+        {
+            get
+            {
+                if (_selectNetAdaptCommand == null)
+                {
+                    _selectNetAdaptCommand = new RelayCommand(
+                    p => true,
+                    p => this.SelectedAdapter(p));
+                }
+                return _selectNetAdaptCommand;
+            }
+        }
+
+        private void SelectedAdapter(object p)
+        {
+            if (p != null)
+            {
+                AdapterObject obj = p as AdapterObject;
+                CurrentAdapter = obj;
+            }
+        }
+
         private ICommand _refreshExecuteCommand;
         public ICommand RefreshExecuteCommand
         {
