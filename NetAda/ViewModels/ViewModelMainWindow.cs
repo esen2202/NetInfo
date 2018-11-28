@@ -3,6 +3,7 @@ using NetInfo;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NetAda.ViewModels
@@ -50,8 +51,10 @@ namespace NetAda.ViewModels
 
         }
 
-        private bool canExecute = true;
 
+
+
+        #region ICommand
         private ICommand _refreshExecuteCommand;
         public ICommand RefreshExecuteCommand
         {
@@ -60,12 +63,28 @@ namespace NetAda.ViewModels
                 if (_refreshExecuteCommand == null)
                 {
                     _refreshExecuteCommand = new RelayCommand(
-                        p => this.canExecute,
+                        p => true,
                         p => this.RefreshAdapters());
                 }
                 return _refreshExecuteCommand;
             }
         }
+
+        private ICommand _closeWindowCommand;
+        public ICommand CloseWindowCommand
+        {
+            get
+            {
+                if (_closeWindowCommand == null)
+                {
+                    _closeWindowCommand = new RelayCommand(
+                        p => true,
+                        p => Application.Current.Shutdown());
+                }
+                return _closeWindowCommand;
+            }
+        }
+        #endregion
 
         private void RefreshAdapters()
         {

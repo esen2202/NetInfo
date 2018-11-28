@@ -16,7 +16,13 @@ namespace NetInfo
 
             adapterInfo.listAdapter.ForEach(adapter =>
             {
-                ShowAdapters(adapter);
+                //ShowAdapters(adapter);
+            });
+
+
+            WMIHelper.GetNICNames().ForEach(adapter =>
+            {
+                Console.WriteLine(adapter.ToString());
             });
 
             Console.Read();

@@ -10,14 +10,18 @@
         AllowsTransparency="True" WindowStyle="None" Background="#D8314E72" 
         xmlns:uc="clr-namespace:NetAda.UC"
         xmlns:tb="http://www.hardcodet.net/taskbar"
-        Loaded="Window_Loaded" ShowInTaskbar="True" Icon="/NetAda;component/Assets/icons/32x32_white_wifi.png">
+        Loaded="Window_Loaded" ShowInTaskbar="False" Icon="/NetAda;component/Assets/icons/32x32_white_wifi.png">
 
     <Window.Resources>
         <!-- Data Template (applied to each bound task item in the task collection) -->
         <DataTemplate x:Key="networkAdapterListTemplate">
             <Border Name="border" BorderBrush="{x:Null}" Margin="5">
-                
-                <uc:NetListItem />
+                <!--  <DockPanel VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="Ethernet" VerticalAlignment="Center" Foreground="#FF8BBAFF"/>
+                    <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Description,FallbackValue='Adapter Name'}" 
+                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
+                </DockPanel> -->
+               <uc:NetListItem />  
             </Border>
         </DataTemplate>
     </Window.Resources>
@@ -36,37 +40,37 @@
         />-->
 
         <ListBox
-            Name="listBox1"
-      ItemsSource="{Binding  ListAdapter }"
-      ItemTemplate="{StaticResource networkAdapterListTemplate}"
-      HorizontalContentAlignment="Stretch"
-      IsSynchronizedWithCurrentItem="True"
-      Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                Name="lbNetList" SelectionChanged="LbNetList_SelectionChanged"
+                  ItemsSource="{Binding  ListAdapter }"
+                  ItemTemplate="{StaticResource networkAdapterListTemplate}"
+                  HorizontalContentAlignment="Stretch"
+                  IsSynchronizedWithCurrentItem="True"
+                  Background="{x:Null}" BorderBrush="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" />
         <Border Grid.Row="1" Background="#66000000" Padding="2">
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
-                 
-                <Button Name="BtnClose"  Click="BtnClose_Click"  
-                        Style="{StaticResource MaterialDesignToolButton}" 
+
+                <Button Name="BtnClose"  Command="{Binding CloseWindowCommand}"
+                        Style="{StaticResource MaterialDesignToolButton}"  
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="2 0 20 4" Background="#FFB44714" BorderBrush="#19FFFFFF">
                     <materialDesign:PackIcon Kind="WindowClose" Foreground="#DDFF7F7F" Width="25" Height="25" />
                 </Button>
 
-                <Button Name="BtnNetConnections"   Click="BtnNetConnections_Click"
+                <Button Name="BtnNetConnections"  Click="BtnNetConnections_Click" Command="{Binding OpenNetConnectionCommand}"
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF144EB4" BorderBrush="#19FFFFFF">
                     <materialDesign:PackIcon Kind="Lan" Foreground="#DD2E85C1" Width="25" Height="25" />
                 </Button>
 
-                <Button Name="BtnRefresh"  Command="{Binding RefreshExecuteCommand}"
+                <Button Name="BtnRefresh"  Command="{Binding RefreshExecuteCommand}" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
                     <materialDesign:PackIcon Kind="Refresh" Foreground="#DD7EC12E" Width="25" Height="25" />
                 </Button>
 
-                <Button Name="BtnSettings"   Click="BtnSettings_Click"
+                <Button Name="BtnSettings"   Click="BtnSettings_Click" Command="{Binding OpenSettings}" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
@@ -74,7 +78,7 @@
                 </Button>
 
 
-                <Button Name="BtnAlwaysTop"   Click="BtnAlwaysTop_Click"
+                <Button Name="BtnAlwaysTop"   Click="BtnAlwaysTop_Click" Command="{Binding ToggleAlwaysTop}" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">

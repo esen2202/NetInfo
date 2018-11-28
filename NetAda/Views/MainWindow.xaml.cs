@@ -118,6 +118,16 @@ namespace NetAda.Views
         {
             iconPin.Kind = this.Topmost ? MaterialDesignThemes.Wpf.PackIconKind.PinOutline : MaterialDesignThemes.Wpf.PackIconKind.PinOffOutline;
         }
+
+
+        private void LbNetList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            //if(lbNetList.SelectedItem != null)
+            //{
+            //    var item = lbNetList.SelectedItem as AdapterObject;
+            //    MessageBox.Show(item.Description);
+            //} 
+        }
     }
 
 

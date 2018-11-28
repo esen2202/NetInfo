@@ -71,6 +71,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\BindProcess.cs" />
+    <Compile Include="Classes\NotifyIconViewModel.cs" />
     <Compile Include="Converters\Formatter.cs" />
     <Compile Include="Commands\Generic\RelayCommand.cs" />
     <Compile Include="ViewModels\ViewModelMainWindow.cs" />
@@ -78,6 +79,10 @@
       <DependentUpon>NetListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Classes\NotifyIconResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -120,7 +125,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetInfo\NetInfo.csproj">
