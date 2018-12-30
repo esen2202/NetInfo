@@ -76,6 +76,7 @@ namespace NetAda.Views
             this.Left = System.Windows.SystemParameters.PrimaryScreenWidth - this.Width;
             this.Top = 0;
 
+            this.MaxHeight = SystemParameters.WorkArea.Height;
             this.DataContext = new ViewModels.ViewModelMainWindow();
 
             TopMostIconChanger();
@@ -127,6 +128,18 @@ namespace NetAda.Views
             //    var item = lbNetList.SelectedItem as AdapterObject;
             //    MessageBox.Show(item.Description);
             //} 
+        }
+
+        private void BtnShowHideList_OnClick(object sender, RoutedEventArgs e)
+        {
+            lbNetList.Visibility =
+                lbNetList.Visibility == Visibility.Collapsed ? Visibility.Visible : Visibility.Collapsed;
+            ShowHideIconChanger();
+        }
+
+        private void ShowHideIconChanger()
+        {
+            iconShowHide.Kind = lbNetList.Visibility == Visibility.Collapsed ? MaterialDesignThemes.Wpf.PackIconKind.ArrowExpand : MaterialDesignThemes.Wpf.PackIconKind.ArrowCollapse;
         }
     }
 

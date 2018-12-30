@@ -74,12 +74,26 @@
     <Compile Include="Classes\NotifyIconViewModel.cs" />
     <Compile Include="Converters\Formatter.cs" />
     <Compile Include="Commands\Generic\RelayCommand.cs" />
+    <Compile Include="UC\NetList.xaml.cs">
+      <DependentUpon>NetList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\NetListItemExpander.xaml.cs">
+      <DependentUpon>NetListItemExpander.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ViewModelMainWindow.cs" />
     <Compile Include="UC\NetListItem.xaml.cs">
       <DependentUpon>NetListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Classes\NotifyIconResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\NetList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\NetListItemExpander.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

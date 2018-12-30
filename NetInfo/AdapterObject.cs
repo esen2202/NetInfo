@@ -8,6 +8,19 @@ namespace NetInfo
     {
 
         #region Base Info
+
+        private string name;
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged(() => Name);
+            }
+        }
+
         private string description;
 
         public string Description
@@ -67,6 +80,31 @@ namespace NetInfo
                 OnPropertyChanged(()=>SupportMulticast);
             }
         }
+
+        private bool isOperationalStatusUp;
+
+        public bool IsOperationalStatusUp
+        {
+            get { return isOperationalStatusUp; }
+            set
+            {
+                isOperationalStatusUp = value;
+                OnPropertyChanged(() => IsOperationalStatusUp);
+            }
+        }
+
+        private long speed;
+
+        public long Speed
+        {
+            get { return speed; }
+            set
+            {
+                speed = value;
+                OnPropertyChanged(() => Speed);
+            }
+        }
+
         #endregion
 
         #region IP

@@ -9,9 +9,9 @@ namespace NetAda.UC
     /// <summary>
     /// Interaction logic for NetListItem.xaml
     /// </summary>
-    public partial class NetListItem : UserControl
+    public partial class NetListItemExpander : UserControl
     {
-        public NetListItem()
+        public NetListItemExpander()
         {
             InitializeComponent();
 
@@ -32,18 +32,19 @@ namespace NetAda.UC
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
-               
+
         private void IsDHCPIconChanger(bool status)
         {
             iconDHCP.Kind = status ? MaterialDesignThemes.Wpf.PackIconKind.Check : MaterialDesignThemes.Wpf.PackIconKind.Cancel;
             iconDHCP.Foreground = status ? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
+            ExpAdapter.IsExpanded = true;
         }
 
         private void IsNetworkIconChanger(bool status)
         {
             iconNetworkStatus.Kind = status ? MaterialDesignThemes.Wpf.PackIconKind.LanConnect : MaterialDesignThemes.Wpf.PackIconKind.LanDisconnect;
             iconNetworkStatus.Foreground = status ? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
-             
+
         }
 
         private void BtnCopyIPAddress_OnClick(object sender, RoutedEventArgs e)
@@ -54,11 +55,6 @@ namespace NetAda.UC
         private void BtnCopyGateway_OnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TxbGateway.Text);
-        }
-
-        private void BtnCopyMac_OnClick(object sender, RoutedEventArgs e)
-        {
-            Clipboard.SetText(TxbMacAddress.Text);
         }
     }
 }

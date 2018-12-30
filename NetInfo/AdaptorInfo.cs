@@ -15,7 +15,7 @@ namespace NetInfo
 
         private AdapterInfo()
         {
-            adapters = NetworkInterface.GetAllNetworkInterfaces();
+            
             listAdapter = new List<AdapterObject>();
             RefreshInfos();
         }
@@ -32,9 +32,13 @@ namespace NetInfo
             return adapterInfo;
         }
 
+
+
         public void RefreshInfos()
         {
             listAdapter.Clear();
+
+            adapters = NetworkInterface.GetAllNetworkInterfaces();
 
             foreach (NetworkInterface adapter in adapters)
             {
@@ -42,7 +46,7 @@ namespace NetInfo
 
                 foreach (UnicastIPAddressInformation ip in ipProp.UnicastAddresses)
                 {
-                    if (adapter.OperationalStatus == OperationalStatus.Up &&
+                    if (adapter.NetworkInterfaceType != NetworkInterfaceType.Loopback && 
                         ip.Address.AddressFamily == AddressFamily.InterNetwork)
                     {
                         IPInterfaceProperties adapterProp = adapter.GetIPProperties();
@@ -51,11 +55,14 @@ namespace NetInfo
 
                         listAdapter.Add(new AdapterObject
                         {
+                            Name = adapter.Name,
                             Description = adapter.Description,
                             NetworkInterfaceType = adapter.NetworkInterfaceType.ToString(),
                             PhysicalAddress = adapter.GetPhysicalAddress().ToString(),
                             IsReceiveOnly = adapter.IsReceiveOnly,
                             SupportMulticast = adapter.SupportsMulticast,
+                            IsOperationalStatusUp =  adapter.OperationalStatus == OperationalStatus.Up,
+                            Speed =  adapter.Speed,
 
                             IpAddress = ip.Address.ToString(),
                             SubnetMask = ip.IPv4Mask.ToString(),

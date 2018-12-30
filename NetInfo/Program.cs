@@ -16,7 +16,7 @@ namespace NetInfo
 
             adapterInfo.listAdapter.ForEach(adapter =>
             {
-                //ShowAdapters(adapter);
+               //ShowAdapters(adapter);
             });
 
 

@@ -52,7 +52,7 @@ namespace NetAda.ViewModels
 
             adapterInfo.listAdapter.ForEach(adapter =>
             {
-                var adp = ListAdapter.Where(x => x.Description == adapter.Description).FirstOrDefault();
+                var adp = ListAdapter.Where(x => x.Name == adapter.Name).FirstOrDefault();
                 if (adp != null)
                 {
                     adp.IsDHCPEnabled = adapter.IsDHCPEnabled;

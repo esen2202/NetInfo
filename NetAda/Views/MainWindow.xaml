@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NetAda"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="650" Width="350"
+        Title="MainWindow"  Width="320" SizeToContent="Height"
         AllowsTransparency="True" WindowStyle="None" Background="#D8314E72" 
         xmlns:uc="clr-namespace:NetAda.UC"
         xmlns:tb="http://www.hardcodet.net/taskbar"
@@ -15,56 +15,41 @@
     <Window.Resources>
         <!-- Data Template (applied to each bound task item in the task collection) -->
         <DataTemplate x:Key="networkAdapterListTemplate">
-            <Border Name="border" BorderBrush="{x:Null}" Margin="5" HorizontalAlignment="Left">
-                <Button Style="{StaticResource MaterialDesignToolButton}"
-                        CommandParameter="{Binding}">
+            <!--<Border Name="border" BorderBrush="{x:Null}" Margin="5" HorizontalAlignment="Left">
+                <Button Style="{StaticResource MaterialDesignToolButton}" Height="50"
+                        CommandParameter="{Binding}" HorizontalAlignment="Left">
                     <Button.Command>
                         <Binding ElementName="AdapterListWindow" Path="DataContext.SelectNetAdaptCommand" />
                     </Button.Command>
-                   
+                    <StackPanel HorizontalAlignment="Left">
+                        <DockPanel HorizontalAlignment="Left">
+                            <materialDesign:PackIcon Kind="Ethernet" VerticalAlignment="Center" Foreground="#FF8BBAFF" />
+                            <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Name,FallbackValue='Adapter Name'}"
+                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
+                        </DockPanel>
 
-                    <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <materialDesign:PackIcon Kind="Ethernet" VerticalAlignment="Center" Foreground="#FF8BBAFF"/>
-                    <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Description,FallbackValue='Adapter Name'}" 
-                               Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
-                  </DockPanel>
+                    <DockPanel HorizontalAlignment="Left">
+                        <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Description,FallbackValue='Adapter Description'}"  VerticalAlignment="Center"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FFA2A2A2" FontWeight="Normal"  />
+                    </DockPanel>
+                </StackPanel>
                 </Button>
-                
-                <!--<uc:NetListItem />-->
-            </Border>
+            </Border>-->
+            <uc:NetList />
+
         </DataTemplate>
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="45"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListBox
-            Name="lbNetList" SelectionChanged="LbNetList_SelectionChanged"
-            ItemsSource="{Binding  ListAdapter}"
-            ItemTemplate="{StaticResource networkAdapterListTemplate}"
-            HorizontalContentAlignment="Stretch"
-            IsSynchronizedWithCurrentItem="True"
-            Background="{x:Null}" BorderBrush="{x:Null}" 
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
-
-            <ListBox.Resources>
-            <Style TargetType="ListBoxItem">
-                <Style.Triggers>
-                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                        <Setter Property="IsSelected" Value="True"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ListBox.Resources>
-            
-        </ListBox>
-        <Border Grid.Row="2" DataContext="{Binding CurrentAdapter}"  BorderBrush="{x:Null}" Margin="5">
+        <Border Grid.Row="0" DataContext="{Binding CurrentAdapter}"  BorderBrush="{x:Null}" Margin="5">
             <uc:NetListItem />
         </Border>
+
         <Border Grid.Row="1" Background="#66000000" Padding="2">
             <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
 
@@ -103,8 +88,40 @@
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
                     <materialDesign:PackIcon Name="iconPin" Kind="PinOutline" Foreground="#DDC7C3F3" Width="25" Height="25"/>
                 </Button>
-                
+
+                <Button Name="BtnShowHideList"   Click="BtnShowHideList_OnClick" Command="{Binding ToggleShowHideList}" 
+                            Style="{StaticResource MaterialDesignToolButton}" 
+                            HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                            Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
+                    <materialDesign:PackIcon Name="iconShowHide" Kind="ArrowCollapse" Foreground="#FF2E4665" Width="25" Height="25"/>
+                </Button>
+
             </DockPanel>
         </Border>
+
+        <ListBox 
+            Grid.Row="2" MaxHeight="320"
+            Name="lbNetList" SelectionChanged="LbNetList_SelectionChanged"
+            ItemsSource="{Binding  ListAdapter}"
+            ItemTemplate="{StaticResource networkAdapterListTemplate}"
+            HorizontalContentAlignment="Stretch"
+            IsSynchronizedWithCurrentItem="True"
+            Background="{x:Null}" BorderBrush="{x:Null}" 
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+            <ListBox.Resources>
+                <Style TargetType="ListBoxItem">
+                    <Style.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="IsSelected" Value="True"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.Resources>
+
+        </ListBox>
+
     </Grid>
+
+
 </Window>
