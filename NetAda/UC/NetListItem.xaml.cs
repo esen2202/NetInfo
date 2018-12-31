@@ -18,13 +18,16 @@ namespace NetAda.UC
             //IsDHCPIconChanger((bool)chkIsDHCPEnabled.IsChecked);
             IsDHCPIconChanger(false);
             IsNetworkIconChanger(false);
+            IsInternetIconChanger(false);
             this.DataContextChanged += NetListItem_DataContextChanged;
         }
 
         private void NetListItem_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            IsDHCPIconChanger(((NetInfo.AdapterObject)this.DataContext).IsDHCPEnabled);
-            IsNetworkIconChanger(((NetInfo.AdapterObject)this.DataContext).IsOperationalStatusUp);
+            var dataContext = (NetInfo.AdapterObject)this.DataContext;
+            IsDHCPIconChanger(dataContext.IsDHCPEnabled);
+            IsNetworkIconChanger(dataContext.IsOperationalStatusUp);
+            IsInternetIconChanger(dataContext.Internet);
         }
 
         private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -46,6 +49,13 @@ namespace NetAda.UC
              
         }
 
+        private void IsInternetIconChanger(bool status)
+        {
+            iconInternetStatus.Kind = status ? MaterialDesignThemes.Wpf.PackIconKind.Earth : MaterialDesignThemes.Wpf.PackIconKind.EarthOff;
+            iconInternetStatus.Foreground = status ? new SolidColorBrush(Color.FromArgb(255, 59, 255, 0)) : new SolidColorBrush(Color.FromArgb(255, 255, 97, 89));
+
+        }
+
         private void BtnCopyIPAddress_OnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TxbIPAddress.Text);
@@ -59,6 +69,26 @@ namespace NetAda.UC
         private void BtnCopyMac_OnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TxbMacAddress.Text);
+        }
+
+        private void BtnCopyDHCPServer_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbDHCPServer.Text);
+        }
+      
+        private void BtnCopyDNSServer1_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbDNSServer1.Text);
+        }
+    
+        private void BtnCopyDNSServer2_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbDNSServer2.Text);
+        }
+
+        private void BtnCopySubnetMask_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbSubnetMask.Text);
         }
     }
 }

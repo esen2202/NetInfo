@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
@@ -104,6 +105,19 @@ namespace NetInfo
                 OnPropertyChanged(() => Speed);
             }
         }
+
+        private bool internet;
+
+        public bool Internet
+        {
+            get { return internet; }
+            set
+            {
+                internet = value;
+                OnPropertyChanged(() => Internet);
+            }
+        }
+
 
         #endregion
 
@@ -266,6 +280,42 @@ namespace NetInfo
             {
                 isDHCPEnabled = value;
                 OnPropertyChanged(()=>IsDHCPEnabled);
+            }
+        }
+
+        private string dhcpServer;
+
+        public string DHCPServer
+        {
+            get { return dhcpServer; }
+            set
+            {
+                dhcpServer = value;
+                OnPropertyChanged(() => DHCPServer);
+            }
+        }
+
+        private string dnsServer1;
+
+        public string DNSServer1
+        {
+            get { return dnsServer1; }
+            set
+            {
+                dnsServer1 = value;
+                OnPropertyChanged(() => DNSServer1);
+            }
+        }
+
+        private string dnsServer2;
+
+        public string DNSServer2
+        {
+            get { return dnsServer2; }
+            set
+            {
+                dnsServer2 = value;
+                OnPropertyChanged(() => DNSServer2);
             }
         }
 

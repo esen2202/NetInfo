@@ -15,28 +15,7 @@
     <Window.Resources>
         <!-- Data Template (applied to each bound task item in the task collection) -->
         <DataTemplate x:Key="networkAdapterListTemplate">
-            <!--<Border Name="border" BorderBrush="{x:Null}" Margin="5" HorizontalAlignment="Left">
-                <Button Style="{StaticResource MaterialDesignToolButton}" Height="50"
-                        CommandParameter="{Binding}" HorizontalAlignment="Left">
-                    <Button.Command>
-                        <Binding ElementName="AdapterListWindow" Path="DataContext.SelectNetAdaptCommand" />
-                    </Button.Command>
-                    <StackPanel HorizontalAlignment="Left">
-                        <DockPanel HorizontalAlignment="Left">
-                            <materialDesign:PackIcon Kind="Ethernet" VerticalAlignment="Center" Foreground="#FF8BBAFF" />
-                            <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Name,FallbackValue='Adapter Name'}"
-                                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
-                        </DockPanel>
-
-                    <DockPanel HorizontalAlignment="Left">
-                        <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Description,FallbackValue='Adapter Description'}"  VerticalAlignment="Center"
-                               Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FFA2A2A2" FontWeight="Normal"  />
-                    </DockPanel>
-                </StackPanel>
-                </Button>
-            </Border>-->
             <uc:NetList />
-
         </DataTemplate>
     </Window.Resources>
     <Grid>

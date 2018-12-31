@@ -16,7 +16,7 @@ namespace NetInfo
 
             adapterInfo.listAdapter.ForEach(adapter =>
             {
-               //ShowAdapters(adapter);
+              ShowAdapters(adapter);
             });
 
 
@@ -52,6 +52,9 @@ namespace NetInfo
             Console.WriteLine("  Forwarding enabled................. : {0}", adapter.IsForwardingEnabled);
             Console.WriteLine("  Uses WINS ......................... : {0}", adapter.UsesWins);
             Console.WriteLine("  DHCP enabled....................... : {0}", adapter.IsDHCPEnabled);
+
+            Console.WriteLine("  Speed.............................. : {0}", adapter.Speed);
+          
             Console.WriteLine();
         }
     }

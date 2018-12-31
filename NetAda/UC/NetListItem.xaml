@@ -6,13 +6,16 @@
              xmlns:local="clr-namespace:NetAda.UC"
              xmlns:converters="clr-namespace:NetAda.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="181"  >
+             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="291"  >
     <UserControl.Resources>
         <converters:Formatter x:Key="FormatConverter" />
+        <converters:MacAddressConverter x:Key="MacAddressConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </UserControl.Resources>
     <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0"   Width="320" CornerRadius="10" >
         <StackPanel>
             <DockPanel VerticalAlignment="Center" Margin="10">
+                <materialDesign:PackIcon Name="iconInternetStatus" Kind="EarthOff" VerticalAlignment="Center" Foreground="#FFFF8B8B"/>
                 <materialDesign:PackIcon Name="iconNetworkStatus" Kind="LanConnect" VerticalAlignment="Center" Foreground="#FFFF8B8B"/>
                 <TextBlock Margin="5 0 0 0"  Text="{Binding Path=Name,FallbackValue='Adapter Name'}" 
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
@@ -20,18 +23,18 @@
 
             <Grid >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="107*" />
-                    <ColumnDefinition Width="107*" />
-                    <ColumnDefinition Width="84*"/>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3">
@@ -48,7 +51,8 @@
                     <TextBlock Name="TxbIPAddress"  Text="{Binding IpAddress,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
                 </DockPanel>
 
-                <DockPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <DockPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                           Visibility="{Binding IpAddress,Converter={StaticResource StringToVisibilityConverter}}">
                     <Button Name="BtnCopyIPAddress"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
                             materialDesign:RippleAssist.IsCentered="True"  Click="BtnCopyIPAddress_OnClick" >
                         <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
@@ -62,8 +66,17 @@
                 </DockPanel>
 
                 <DockPanel Grid.Column="1" Grid.Row="2"  >
-                    <TextBlock Text="{Binding SubnetMask,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock Name="TxbSubnetMask" Text="{Binding SubnetMask,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
                 </DockPanel>
+
+                <DockPanel Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Visibility="{Binding SubnetMask,Converter={StaticResource StringToVisibilityConverter}}">
+                    <Button Name="BtnCopySubnetMask"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                            materialDesign:RippleAssist.IsCentered="True" Click="BtnCopySubnetMask_OnClick">
+                        <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                    </Button>
+                </DockPanel>
+
 
                 <DockPanel Grid.Column="0" Grid.Row="3">
                     <TextBlock Text="Gateway" VerticalAlignment="Center"
@@ -78,7 +91,8 @@
                     </TextBlock>
                 </DockPanel>
 
-                <DockPanel Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left">
+                <DockPanel Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                           Visibility="{Binding Gateway,Converter={StaticResource StringToVisibilityConverter}}">
                     <Button Name="BtnCopyGateway"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
                             materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyGateway_OnClick">
                         <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
@@ -102,27 +116,107 @@
                 </DockPanel>
 
 
-                <DockPanel Grid.Column="0" Grid.Row="5">
-                    <TextBlock Text="Physical Address" VerticalAlignment="Center"
-                               Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
-                </DockPanel>
-
-                <DockPanel Grid.Column="1" Grid.Row="5"  >
-                    <TextBlock  Foreground="White" VerticalAlignment="Center" FontSize="14">
-                       
-                            <TextBlock Name="TxbMacAddress" Text="{Binding PhysicalAddress,  FallbackValue='-'}" Foreground="White" />
-                         
-                    </TextBlock>
-                </DockPanel>
-
-                <DockPanel Grid.Column="2" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <Button Name="BtnCopyMac"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
-                            materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyMac_OnClick">
-                        <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
-                    </Button>
-                </DockPanel>
-
             </Grid>
+            <Expander Name="ExpAdapter" 
+                      HorizontalAlignment="Stretch" 
+                      Foreground="#FFFFB900" Background="{x:Null}">
+                <Expander.Header >
+                    <HeaderedContentControl >
+                        <DockPanel VerticalAlignment="Center">
+                            <TextBlock Text="Details" 
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"  Foreground="#DDFFB900" />
+                        </DockPanel>
+                    </HeaderedContentControl>
+                </Expander.Header>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.Column="0" Grid.Row="0">
+                        <TextBlock Text="DHCP Server"  VerticalAlignment="Center"
+                               Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal"  />
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="1" Grid.Row="0"  >
+                        <TextBlock Name="TxbDHCPServer"  Text="{Binding DHCPServer,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Visibility="{Binding DHCPServer,Converter={StaticResource StringToVisibilityConverter}}">
+                        <Button Name="BtnCopyDHCPServer"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                            materialDesign:RippleAssist.IsCentered="True"  Click="BtnCopyDHCPServer_OnClick" >
+                            <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                        </Button>
+
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="0" Grid.Row="1">
+                        <TextBlock Text="DNS Server1"  VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="1" Grid.Row="1"  >
+                        <TextBlock  Name="TxbDNSServer1"  Text="{Binding DNSServer1,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Visibility="{Binding DNSServer1,Converter={StaticResource StringToVisibilityConverter}}">
+                        <Button Name="BtnCopyDNSServer1"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                                materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyDNSServer1_OnClick">
+                            <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                        </Button>
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="0" Grid.Row="2">
+                        <TextBlock Text="DNS Server2" VerticalAlignment="Center"
+                            Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="1" Grid.Row="2"  >
+                        <TextBlock Name="TxbDNSServer2"  Text="{Binding DNSServer2,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="2" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Visibility="{Binding DNSServer2,Converter={StaticResource StringToVisibilityConverter}}">
+                        <Button Name="BtnCopyDNSServer2"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                            materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyDNSServer2_OnClick">
+                            <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                        </Button>
+                    </DockPanel>
+
+
+                    <DockPanel Grid.Column="0" Grid.Row="3">
+                        <TextBlock Text="Physical Address" VerticalAlignment="Center"
+                                   Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="1" Grid.Row="3"  >
+                        <TextBlock  Foreground="White" VerticalAlignment="Center" FontSize="14">
+                       
+                            <TextBlock Name="TxbMacAddress" Text="{Binding PhysicalAddress, Converter={StaticResource MacAddressConverter},FallbackValue='-'}" Foreground="White" />
+                         
+                        </TextBlock>
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="2" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Visibility="{Binding PhysicalAddress,Converter={StaticResource StringToVisibilityConverter}}">
+                        <Button Name="BtnCopyMac"  Style="{StaticResource MaterialDesignToolButton}" Width="25" Height="25" Padding="0 0 0 0"
+                                materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyMac_OnClick">
+                            <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                        </Button>
+                    </DockPanel>
+
+                </Grid>
+            </Expander>
         </StackPanel>
 
     </Border>

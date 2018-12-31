@@ -74,6 +74,8 @@
     <Compile Include="Classes\NotifyIconViewModel.cs" />
     <Compile Include="Converters\Formatter.cs" />
     <Compile Include="Commands\Generic\RelayCommand.cs" />
+    <Compile Include="Converters\MacAddressConverter.cs" />
+    <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="UC\NetList.xaml.cs">
       <DependentUpon>NetList.xaml</DependentUpon>
     </Compile>

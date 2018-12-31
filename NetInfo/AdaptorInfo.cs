@@ -15,7 +15,7 @@ namespace NetInfo
 
         private AdapterInfo()
         {
-            
+
             listAdapter = new List<AdapterObject>();
             RefreshInfos();
         }
@@ -46,8 +46,8 @@ namespace NetInfo
 
                 foreach (UnicastIPAddressInformation ip in ipProp.UnicastAddresses)
                 {
-                    if (adapter.NetworkInterfaceType != NetworkInterfaceType.Loopback && 
-                        ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                    if ((adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211 || adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet) &&
+                        ip.Address.AddressFamily == AddressFamily.InterNetwork) //
                     {
                         IPInterfaceProperties adapterProp = adapter.GetIPProperties();
                         IPv4InterfaceProperties adapterPropV4 = adapterProp.GetIPv4Properties();
@@ -61,8 +61,8 @@ namespace NetInfo
                             PhysicalAddress = adapter.GetPhysicalAddress().ToString(),
                             IsReceiveOnly = adapter.IsReceiveOnly,
                             SupportMulticast = adapter.SupportsMulticast,
-                            IsOperationalStatusUp =  adapter.OperationalStatus == OperationalStatus.Up,
-                            Speed =  adapter.Speed,
+                            IsOperationalStatusUp = adapter.OperationalStatus == OperationalStatus.Up,
+                            Speed = adapter.Speed,
 
                             IpAddress = ip.Address.ToString(),
                             SubnetMask = ip.IPv4Mask.ToString(),
@@ -78,8 +78,14 @@ namespace NetInfo
                             IsAutomaticPrivateAddressingEnabled = adapterPropV4.IsAutomaticPrivateAddressingEnabled,
                             IsForwardingEnabled = adapterPropV4.IsForwardingEnabled,
                             UsesWins = adapterPropV4.UsesWins,
-                            IsDHCPEnabled = adapterPropV4.IsDhcpEnabled
-                           
+                            IsDHCPEnabled = adapterPropV4.IsDhcpEnabled,
+
+                            DHCPServer = adapterProp.DhcpServerAddresses.FirstOrDefault() != null ? adapterProp.DhcpServerAddresses.FirstOrDefault().ToString() : "",
+
+                            DNSServer1 = (adapterProp.DnsAddresses.Count > 0 && adapterProp.DnsAddresses[0].AddressFamily == AddressFamily.InterNetwork) ? adapterProp.DnsAddresses[0]?.ToString() : "",
+                            DNSServer2 = (adapterProp.DnsAddresses.Count > 1 && adapterProp.DnsAddresses[1].AddressFamily == AddressFamily.InterNetwork) ? adapterProp.DnsAddresses[1]?.ToString() : "",
+
+                            Internet = adapter.GetIPv4Statistics().BytesReceived > 0 && adapter.GetIPv4Statistics().BytesSent > 0
                         });
                     }
                 }

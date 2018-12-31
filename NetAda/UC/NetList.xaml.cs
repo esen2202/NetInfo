@@ -29,7 +29,8 @@ namespace NetAda.UC
 
         private void NetListItem_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            IsNetworkIconChanger(((NetInfo.AdapterObject)this.DataContext).IsOperationalStatusUp);
+            if (this.DataContext != null)
+                IsNetworkIconChanger(((NetInfo.AdapterObject)this.DataContext).IsOperationalStatusUp);
         }
 
         private void IsNetworkIconChanger(bool status)
