@@ -3,6 +3,7 @@ using NetInfo;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Input;
 
@@ -36,6 +37,14 @@ namespace NetAda.ViewModels
             }
         }
 
+        public string GlobalIP
+        {
+            get { return GetPublicIpToString(); }
+            set
+            {
+                base.OnPropertyChanged(() => GlobalIP);
+            }
+        }
 
         public ViewModelMainWindow()
         {
@@ -100,7 +109,13 @@ namespace NetAda.ViewModels
                 {
                     _refreshExecuteCommand = new RelayCommand(
                         p => true,
-                        p => this.RefreshAdapters());
+                        p =>
+                        {
+                            this.RefreshAdapters();
+                            this.RefreshSpeed();
+                            this.GlobalIP = "";
+
+                        });
                 }
                 return _refreshExecuteCommand;
             }
@@ -125,6 +140,42 @@ namespace NetAda.ViewModels
         private void RefreshAdapters()
         {
             GetAdapterList();
+        }
+
+        private void RefreshSpeed()
+        {
+            if(adapterInfo !=null && CurrentAdapter != null)
+            adapterInfo.RefreshAdapterSpeed(ref _currentAdapter);
+        }
+
+        public static string GetPublicIp()
+        {
+            string uri = "http://checkip.dyndns.org/";
+            string ip = String.Empty;
+
+            using (var client = new HttpClient())
+            {
+                var result = client.GetAsync(uri).Result.Content.ReadAsStringAsync().Result;
+
+                ip = result.Split(':')[1].Split('<')[0];
+            }
+
+            return ip;
+        }
+
+        public string GetPublicIpToString()
+        {
+            try
+            {
+                return GetPublicIp();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return "";
+
+            }
+            
         }
     }
 

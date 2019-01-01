@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:NetAda.UC"
              xmlns:converters="clr-namespace:NetAda.Converters"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="291"  >
+             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="329"  >
     <UserControl.Resources>
         <converters:Formatter x:Key="FormatConverter" />
         <converters:MacAddressConverter x:Key="MacAddressConverter" />
@@ -139,6 +139,7 @@
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
                     </Grid.RowDefinitions>
 
                     <DockPanel Grid.Column="0" Grid.Row="0">
@@ -215,6 +216,19 @@
                         </Button>
                     </DockPanel>
 
+
+                    <DockPanel Grid.Column="0" Grid.Row="4">
+                        <TextBlock Text="Speed" VerticalAlignment="Center"
+                                   Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                    </DockPanel>
+
+                    <DockPanel Grid.Column="1" Grid.Row="4"  >
+                        <TextBlock  Foreground="White" VerticalAlignment="Center" FontSize="14">
+                       
+                            <TextBlock Name="TxbSpeed" Text="{Binding Speed,FallbackValue='-'}" Foreground="White" />
+                            <TextBlock Text=" Mbps" Foreground="#FF858585" />
+                        </TextBlock>
+                    </DockPanel>
                 </Grid>
             </Expander>
         </StackPanel>

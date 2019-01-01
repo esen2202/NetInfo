@@ -98,7 +98,7 @@ namespace NetInfo
 
         public long Speed
         {
-            get { return speed; }
+            get { return speed / 1000 / 1000; }
             set
             {
                 speed = value;

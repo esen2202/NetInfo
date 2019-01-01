@@ -10,6 +10,7 @@
         AllowsTransparency="True" WindowStyle="None" Background="#D8314E72" 
         xmlns:uc="clr-namespace:NetAda.UC"
         xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:converters="clr-namespace:NetAda.Converters"
         Loaded="Window_Loaded" ShowInTaskbar="False" Icon="/NetAda;component/Assets/icons/32x32_white_wifi.png" Name="AdapterListWindow">
 
     <Window.Resources>
@@ -17,11 +18,17 @@
         <DataTemplate x:Key="networkAdapterListTemplate">
             <uc:NetList />
         </DataTemplate>
+        <converters:Formatter x:Key="FormatConverter" />
+        <converters:MacAddressConverter x:Key="MacAddressConverter" />
+        <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </Window.Resources>
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="45"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
@@ -29,57 +36,90 @@
             <uc:NetListItem />
         </Border>
 
-        <Border Grid.Row="1" Background="#66000000" Padding="2">
-            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
 
-                <Button Name="BtnClose"  Command="{Binding CloseWindowCommand}"
+        <Border Grid.Row="1"  BorderBrush="{x:Null}" Margin="0 0 5 5" Width="320"
+                Visibility="{Binding GlobalIP,Converter={StaticResource StringToVisibilityConverter}}">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="25"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+         
+            
+                <TextBlock Text="Global IP"  VerticalAlignment="Center" Grid.Column="0"
+                           Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+
+                <TextBlock Name="TxbGlobalIP" Text="{Binding GlobalIP,FallbackValue='0.0.0.0'}" Grid.Column="1" 
+                           Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="14"/>
+
+                <Button Name="BtnCopyGlobalIP"  Style="{StaticResource MaterialDesignToolButton}" 
+                        Width="25" Height="25" Padding="0 0 0 0" Grid.Column="2" HorizontalAlignment="Left"
+                        materialDesign:RippleAssist.IsCentered="True" Click="BtnCopyGlobalIP_OnClick">
+                    <materialDesign:PackIcon Kind="ContentCopy" Foreground="#FF36A5E4" />
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Background="#66000000" Padding="2">
+            <StackPanel>
+
+                <DockPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+
+                    <Button Name="BtnClose"  Command="{Binding CloseWindowCommand}"
                         Style="{StaticResource MaterialDesignToolButton}"  
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="2 0 20 4" Background="#FFB44714" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Kind="WindowClose" Foreground="#DDFF7F7F" Width="25" Height="25" />
-                </Button>
+                        <materialDesign:PackIcon Kind="WindowClose" Foreground="#DDFF7F7F" Width="25" Height="25" />
+                    </Button>
 
-                <Button Name="BtnNetConnections"  Click="BtnNetConnections_Click"  
+                    <Button Name="BtnNetConnections"  Click="BtnNetConnections_Click"  
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF144EB4" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Kind="Lan" Foreground="#DD2E85C1" Width="25" Height="25" />
-                </Button>
+                        <materialDesign:PackIcon Kind="Lan" Foreground="#DD2E85C1" Width="25" Height="25" />
+                    </Button>
 
-                <Button Name="BtnRefresh"  Command="{Binding RefreshExecuteCommand}" 
+                    <Button Name="BtnRefresh"  Command="{Binding RefreshExecuteCommand}" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Kind="Refresh" Foreground="#DD7EC12E" Width="25" Height="25" />
-                </Button>
+                        <materialDesign:PackIcon Kind="Refresh" Foreground="#DD7EC12E" Width="25" Height="25" />
+                    </Button>
 
-                <Button Name="BtnSettings"   Click="BtnSettings_Click"  
+                    <Button Name="BtnSettings"   Click="BtnSettings_Click"  
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Kind="SettingsOutline" Foreground="#DDC1782E" Width="25" Height="25"  />
-                </Button>
+                        <materialDesign:PackIcon Kind="SettingsOutline" Foreground="#DDC1782E" Width="25" Height="25"  />
+                    </Button>
 
 
-                <Button Name="BtnAlwaysTop"   Click="BtnAlwaysTop_Click" Command="{Binding ToggleAlwaysTop}" 
+                    <Button Name="BtnAlwaysTop"   Click="BtnAlwaysTop_Click" Command="{Binding ToggleAlwaysTop}" 
                         Style="{StaticResource MaterialDesignToolButton}" 
                         HorizontalAlignment="Right" VerticalAlignment="Bottom"
                         Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Name="iconPin" Kind="PinOutline" Foreground="#DDC7C3F3" Width="25" Height="25"/>
-                </Button>
+                        <materialDesign:PackIcon Name="iconPin" Kind="PinOutline" Foreground="#DDC7C3F3" Width="25" Height="25"/>
+                    </Button>
 
-                <Button Name="BtnShowHideList"   Click="BtnShowHideList_OnClick" Command="{Binding ToggleShowHideList}" 
+                    <Button Name="BtnShowHideList"   Click="BtnShowHideList_OnClick" Command="{Binding ToggleShowHideList}" 
                             Style="{StaticResource MaterialDesignToolButton}" 
                             HorizontalAlignment="Right" VerticalAlignment="Bottom"
                             Margin="10 0 10 4" Background="#FF46AA0D" BorderBrush="#19FFFFFF">
-                    <materialDesign:PackIcon Name="iconShowHide" Kind="ArrowCollapse" Foreground="#FF2E4665" Width="25" Height="25"/>
-                </Button>
+                        <materialDesign:PackIcon Name="iconShowHide" Kind="ArrowCollapse" Foreground="#FF2E4665" Width="25" Height="25"/>
+                    </Button>
 
-            </DockPanel>
+                </DockPanel>
+
+            </StackPanel>
         </Border>
 
         <ListBox 
-            Grid.Row="2" MaxHeight="320"
+            Grid.Row="3" MaxHeight="320"
             Name="lbNetList" SelectionChanged="LbNetList_SelectionChanged"
             ItemsSource="{Binding  ListAdapter}"
             ItemTemplate="{StaticResource networkAdapterListTemplate}"

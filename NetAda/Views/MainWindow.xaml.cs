@@ -141,6 +141,11 @@ namespace NetAda.Views
         {
             iconShowHide.Kind = lbNetList.Visibility == Visibility.Collapsed ? MaterialDesignThemes.Wpf.PackIconKind.ArrowExpand : MaterialDesignThemes.Wpf.PackIconKind.ArrowCollapse;
         }
+
+        private void BtnCopyGlobalIP_OnClick(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TxbGlobalIP.Text);
+        }
     }
 
 

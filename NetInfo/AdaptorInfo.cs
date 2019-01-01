@@ -34,6 +34,20 @@ namespace NetInfo
 
 
 
+
+        public void RefreshAdapterSpeed(ref AdapterObject adapterObject)
+        {
+            adapters = NetworkInterface.GetAllNetworkInterfaces();
+            var adapterName = adapterObject.Name;
+
+            var adapter = adapters.Where(x => x.Name == adapterName).SingleOrDefault();
+
+            if (adapter !=null)
+            {
+                adapterObject.Speed = adapter.Speed;
+            } 
+        }
+
         public void RefreshInfos()
         {
             listAdapter.Clear();
