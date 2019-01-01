@@ -12,7 +12,7 @@
         <converters:MacAddressConverter x:Key="MacAddressConverter" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
     </UserControl.Resources>
-    <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0"   Width="320" CornerRadius="10" >
+    <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0" Width="318" CornerRadius="10" >
         <StackPanel>
             <DockPanel VerticalAlignment="Center" Margin="10">
                 <materialDesign:PackIcon Name="iconInternetStatus" Kind="EarthOff" VerticalAlignment="Center" Foreground="#FFFF8B8B"/>

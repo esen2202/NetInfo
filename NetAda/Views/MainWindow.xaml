@@ -32,12 +32,12 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" DataContext="{Binding CurrentAdapter}"  BorderBrush="{x:Null}" Margin="5">
+        <Border Grid.Row="0" DataContext="{Binding CurrentAdapter}"  BorderBrush="{x:Null}" Margin="2 0 0 0">
             <uc:NetListItem />
         </Border>
 
 
-        <Border Grid.Row="1"  BorderBrush="{x:Null}" Margin="0 0 5 5" Width="320"
+        <Border Grid.Row="1"  BorderBrush="{x:Null}" Width="318" HorizontalAlignment="Center"  Margin="2 0 0 5"
                 Visibility="{Binding GlobalIP,Converter={StaticResource StringToVisibilityConverter}}">
             <Grid >
                 <Grid.ColumnDefinitions>
