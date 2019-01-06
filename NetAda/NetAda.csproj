@@ -75,6 +75,7 @@
     <Compile Include="Converters\Formatter.cs" />
     <Compile Include="Commands\Generic\RelayCommand.cs" />
     <Compile Include="Converters\MacAddressConverter.cs" />
+    <Compile Include="Converters\StringToGridShowHideConverter.cs" />
     <Compile Include="Converters\StringToVisibilityConverter.cs" />
     <Compile Include="UC\NetList.xaml.cs">
       <DependentUpon>NetList.xaml</DependentUpon>
@@ -82,6 +83,10 @@
     <Compile Include="UC\NetListItemExpander.xaml.cs">
       <DependentUpon>NetListItemExpander.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\NewConfiguration.xaml.cs">
+      <DependentUpon>NewConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ViewModelConfiguration.cs" />
     <Compile Include="ViewModels\ViewModelMainWindow.cs" />
     <Compile Include="UC\NetListItem.xaml.cs">
       <DependentUpon>NetListItem.xaml</DependentUpon>
@@ -96,6 +101,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\NetListItemExpander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\NewConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,6 +155,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NetInfo\NetInfo.csproj">
       <Project>{b6e909b5-cb68-4151-9ecd-bce88074f365}</Project>
       <Name>NetInfo</Name>

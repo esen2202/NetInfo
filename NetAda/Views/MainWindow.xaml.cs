@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
@@ -71,8 +72,9 @@ namespace NetAda.Views
 
         #endregion
 
-        private Storyboard openStoryboard;
-        private Storyboard closeStoryboard;
+        private Storyboard openSideBarStoryboard, closeSideBarStoryboard;
+        private Storyboard openConfigurationStoryboard, closeConfigurationStoryboard;
+    
 
         private bool pinnedSideBar = false;
 
@@ -89,18 +91,34 @@ namespace NetAda.Views
             this.DataContext = new ViewModels.ViewModelMainWindow();
 
             this.Topmost = true;
+
+            borderConfiguration.Width = 0;
             PinnedIconChanger();
-            
+
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //EnableBlur();
-            openStoryboard = new Storyboard();
-            closeStoryboard = new Storyboard();
+            openSideBarStoryboard = new Storyboard();
+            closeSideBarStoryboard = new Storyboard();
+            openConfigurationStoryboard = new Storyboard();
+            closeConfigurationStoryboard = new Storyboard();
 
-            openStoryboard.Completed += OpenStoryboard_Completed;
-            closeStoryboard.Completed += CloseStoryboard_Completed;
+            openSideBarStoryboard.Completed += OpenStoryboard_Completed;
+            closeSideBarStoryboard.Completed += CloseStoryboard_Completed;
+            openConfigurationStoryboard.Completed += OpenConfigurationStoryboard_Completed;
+            closeConfigurationStoryboard.Completed += CloseConfigurationStoryboard_Completed;
+        }
+
+        private void CloseConfigurationStoryboard_Completed(object sender, EventArgs e)
+        {
+             
+        }
+
+        private void OpenConfigurationStoryboard_Completed(object sender, EventArgs e)
+        {
+             
         }
 
         private void CloseStoryboard_Completed(object sender, EventArgs e)
@@ -113,49 +131,29 @@ namespace NetAda.Views
             borderOpenSideBar.Visibility = Visibility.Collapsed;
         }
 
-        private void OpenCloseBorder(Action action)
+        private void BorderWidthAnimation(Border border, Storyboard storyboard, Double widthStart, Double widthFinish)
         {
-            action?.Invoke();
-        }
-
-        private void OpenBorderAnimation()
-        {
-
-            DoubleAnimation animation = new DoubleAnimation(borderSideBar.Width, 320, TimeSpan.FromMilliseconds(500));
-
+            DoubleAnimation animation = new DoubleAnimation(widthStart, widthFinish, TimeSpan.FromMilliseconds(500));
             animation.EasingFunction = new PowerEase();
-            openStoryboard.Children.Add(animation);
+            storyboard.Children.Add(animation);
 
-            Storyboard.SetTarget(animation, borderSideBar);
+            Storyboard.SetTarget(animation, border);
             Storyboard.SetTargetProperty(animation, new PropertyPath("(Width)"));
 
-            openStoryboard.Begin();
-        }
-
-        private void CloseBorderAnimation()
-        {
-            DoubleAnimation animation = new DoubleAnimation(borderSideBar.Width, 0, TimeSpan.FromMilliseconds(500));
-            animation.EasingFunction = new PowerEase();
-            closeStoryboard.Children.Add(animation);
-
-            Storyboard.SetTarget(animation, borderSideBar);
-            Storyboard.SetTargetProperty(animation, new PropertyPath("(Width)"));
-
-            closeStoryboard.Begin();
-
+            storyboard.Begin();
         }
 
         private void BorderSideBar_OnMouseEnter(object sender, MouseEventArgs e)
         {
-            closeStoryboard.Stop();
+            closeSideBarStoryboard.Stop();
             borderOpenSideBar.Visibility = Visibility.Collapsed;
-            OpenCloseBorder(OpenBorderAnimation);
+            BorderWidthAnimation(borderSideBar, openSideBarStoryboard, borderSideBar.Width, 320);
         }
 
         private void BorderSideBar_OnMouseLeave(object sender, MouseEventArgs e)
         {
-            if (borderSideBar.Width >= 320 && !pinnedSideBar)
-                OpenCloseBorder(CloseBorderAnimation);
+            if (borderSideBar.Width >= 320 && !pinnedSideBar && borderConfiguration.Width == 0)
+                BorderWidthAnimation(borderSideBar, closeSideBarStoryboard, borderSideBar.Width, 0);
 
         }
 
@@ -176,7 +174,7 @@ namespace NetAda.Views
 
         private void BtnSettings_Click(object sender, RoutedEventArgs e)
         {
-
+            BorderWidthAnimation(borderConfiguration, openConfigurationStoryboard, borderConfiguration.Width, 320);
         }
 
         private void BtnAlwaysTop_Click(object sender, RoutedEventArgs e)
@@ -210,7 +208,7 @@ namespace NetAda.Views
             else
             {
                 this.SizeToContent = SizeToContent.Height;
-                lbNetList.Visibility = Visibility.Collapsed; 
+                lbNetList.Visibility = Visibility.Collapsed;
             }
 
             ShowHideIconChanger();
@@ -224,6 +222,11 @@ namespace NetAda.Views
         private void BtnCopyGlobalIP_OnClick(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(TxbGlobalIP.Text);
+        }
+
+        private void BtnHideConfiguration_OnClick(object sender, RoutedEventArgs e)
+        {
+            BorderWidthAnimation(borderConfiguration, closeConfigurationStoryboard, borderConfiguration.Width, 0);
         }
     }
 

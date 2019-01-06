@@ -24,6 +24,14 @@ namespace NetInfo
             {
                 Console.WriteLine(adapter.ToString());
             });
+            
+            AdapterSettings.SetStaticConfiguration("Intel(R) Dual Band Wireless-AC 7265"
+            ,"","255.0.0.0","192.100.2.27");
+            Console.WriteLine("Setlendi");
+            Console.Read();
+
+            AdapterSettings.SetDHCP("Intel(R) Dual Band Wireless-AC 7265");
+            Console.WriteLine("DHCP Aktif");
 
             Console.Read();
         }

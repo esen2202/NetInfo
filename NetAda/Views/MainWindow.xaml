@@ -24,8 +24,41 @@
     </Window.Resources>
 
     <Grid>
-        <DockPanel HorizontalAlignment="Right">
-            <Canvas/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <DockPanel HorizontalAlignment="Right" Grid.Column="1" Visibility="Visible">
+            <Border Name="borderConfiguration" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#E50D3253"
+                    MouseLeave="BorderSideBar_OnMouseLeave">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Background="#66000000" Padding="2">
+                        <StackPanel>
+                            <DockPanel VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <Button Name="BtnHideConfiguration"  Command="{Binding HideConfigurationCommand}"  Click="BtnHideConfiguration_OnClick"
+                                        Style="{StaticResource MaterialDesignToolButton}"  
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                        Margin="2 0 5 4" Background="#FFB44714" BorderBrush="#19FFFFFF">
+                                    <materialDesign:PackIcon Kind="ArrowForward" Foreground="#DD00A2FF" Width="25" Height="25" />
+                                </Button>
+                            </DockPanel>
+
+                        </StackPanel>
+                    </Border>
+                    <uc:NewConfiguration Grid.Row="1"></uc:NewConfiguration>
+                </Grid>
+
+            </Border>
+        </DockPanel>
+
+        <DockPanel HorizontalAlignment="Right" Grid.Column="2">
 
             <Border Name="borderSideBar" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#E50D3253"
                     MouseLeave="BorderSideBar_OnMouseLeave">
@@ -150,11 +183,11 @@
         </DockPanel>
 
 
-        <Border x:Name="borderOpenSideBar"  Width="4" CornerRadius="2 0 0 2" Background="#FF316089" HorizontalAlignment="Right"
+        <Border x:Name="borderOpenSideBar"  Grid.Column="2" Width="4" CornerRadius="2 0 0 2" Background="#FF316089" HorizontalAlignment="Right"
                 MouseEnter="BorderSideBar_OnMouseEnter" BorderThickness="1,1,0,1" BorderBrush="#FF4085C1" Height="100" VerticalAlignment="Top" Margin="0,10,0,0" >
-            
+
         </Border>
 
     </Grid>
-    
+
 </Window>

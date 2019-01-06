@@ -5,7 +5,8 @@ using System.Linq.Expressions;
 
 namespace NetInfo
 {
-    public class AdapterObject : INotifyPropertyChanged
+
+    public class AdapterObject :  INotifyPropertyChanged
     {
 
         #region Base Info

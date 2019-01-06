@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="NetAda.UC.NewConfiguration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetAda.UC"             
+             xmlns:converters="clr-namespace:NetAda.Converters"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="329" >
+    <Grid>
+        <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0" Width="318" CornerRadius="10" >
+            <StackPanel>
+                <DockPanel VerticalAlignment="Center" Margin="10">
+
+                    <materialDesign:PackIcon Name="iconNetworkStatus" Kind="ServerNetwork" VerticalAlignment="Center" Foreground="#FFFF8B8B"/>
+                    <TextBlock Margin="5 0 0 0"  Text="Configuration List" 
+                       Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
+                </DockPanel>
+
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DockPanel Grid.ColumnSpan="3">
+                        <ComboBox ItemsSource="{Binding ListAdapterConfiguration}" DisplayMemberPath="Name" 
+                                  Foreground="Wheat" Width="100" Height="30" Background="#FF1D364F">
+
+
+                        </ComboBox>
+                    </DockPanel>
+
+                </Grid>
+            </StackPanel>
+
+        </Border>
+
+
+    </Grid>
+</UserControl>

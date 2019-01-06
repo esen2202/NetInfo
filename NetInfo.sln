@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "libraries", "libraries", "{
 		..\..\..\..\..\..\..\erkan\Downloads\Programming\WPF_ToastNotifications-master\WPF_ToastNotifications-master\PeanutButter.Toasts\bin\Debug\PeanutButter.Toast.dll = ..\..\..\..\..\..\..\erkan\Downloads\Programming\WPF_ToastNotifications-master\WPF_ToastNotifications-master\PeanutButter.Toasts\bin\Debug\PeanutButter.Toast.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{7850B5DC-5D5B-49EB-93C9-71C597794454}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +32,14 @@ Global
 		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13B54CEC-804E-4076-9D0E-413E4A9B4EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

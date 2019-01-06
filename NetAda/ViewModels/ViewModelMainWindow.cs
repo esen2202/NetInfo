@@ -73,6 +73,9 @@ namespace NetAda.ViewModels
             });
 
             ListAdapter = new ObservableCollection<AdapterObject>(ListAdapter.OrderByDescending(x => x.IsOperationalStatusUp));
+
+
+            if(CurrentAdapter == null ) CurrentAdapter = ListAdapter.FirstOrDefault();
         }
 
         #region ICommand

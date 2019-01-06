@@ -11,6 +11,7 @@
         <converters:Formatter x:Key="FormatConverter" />
         <converters:MacAddressConverter x:Key="MacAddressConverter" />
         <converters:StringToVisibilityConverter x:Key="StringToVisibilityConverter" />
+                <converters:StringToGridShowHideConverter x:Key="StringToGridShowHideConverter" />
     </UserControl.Resources>
     <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0" Width="318" CornerRadius="10" >
         <StackPanel>
