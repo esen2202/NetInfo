@@ -21,6 +21,7 @@ namespace Model
         public DB(string dbName)
         {
             this.dbName = dbName;
+            CheckDB();
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace Model
                     if (name != null && name.ToString() == "AdapterConfiguration")
                         return;
                     // acount table not exist, create table and insert 
-                    command.CommandText = "CREATE TABLE `AdapterConfiguration` ( `Id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,`Group` TEXT,`Name` TEXT NOT NULL, `Description` TEXT, `IpAddress` TEXT NOT NULL, `SubnetMask` TEXT NOT NULL, `Gateway` TEXT)";
+                    command.CommandText = "CREATE TABLE `AdapterConfiguration` ( `Id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,`Group` TEXT,`Name` TEXT NOT NULL, `Description` TEXT, `IpAddress` TEXT NOT NULL, `SubnetMask` TEXT NOT NULL, `Gateway` TEXT, `DHCPServer` TEXT, `DNSServer1` TEXT, `DNSServer2` TEXT)";
                     command.ExecuteNonQuery();
                 }
                 con.Close();
@@ -133,6 +134,9 @@ namespace Model
                             IpAddress = (string)reader["IpAddress"],
                             SubnetMask = (string)reader["SubnetMask"],
                             Gateway = (string)reader["Gateway"],
+                            DHCPServer = (string)reader["DHCPServer"],
+                            DNSServer1 = (string)reader["DNSServer1"],
+                            DNSServer2 = (string)reader["DNSServer2"],
                         });
                     }
                 }
@@ -154,16 +158,19 @@ namespace Model
                 con.Open();
                 using (SQLiteCommand command = new SQLiteCommand(con))
                 {
-                    command.CommandText = "insert into AdapterConfiguration (Group,Name,Description,IpAddress,SubnetMask,Gateway) values(@Group,@Name,@Description,@IpAddress,@SubnetMask,@Gateway); " +
+                    command.CommandText = "insert into AdapterConfiguration (Group,Name,Description,IpAddress,SubnetMask,Gateway,DHCPServer,DNSServer1,DNSServer2) " +
+                                          "values(@Group,@Name,@Description,@IpAddress,@SubnetMask,@Gateway,@DHCPServer,@DNSServer1,@DNSServer2); " +
                         "select last_insert_rowid();";
                     command.CommandType = System.Data.CommandType.Text;
-                    command.Parameters.Add(new SQLiteParameter("@Group", data.Name));
-                    command.Parameters.Add(new SQLiteParameter("@Name", data.Name));
-                    command.Parameters.Add(new SQLiteParameter("@Description", data.Description));
-                    command.Parameters.Add(new SQLiteParameter("@IpAddress", data.IpAddress));
-                    command.Parameters.Add(new SQLiteParameter("@SubnetMask", data.SubnetMask));
-                    command.Parameters.Add(new SQLiteParameter("@Gateway", data.Gateway));
-                    
+                    command.Parameters.Add(new SQLiteParameter("@Group", data.Group!=null?data.Group:""));
+                    command.Parameters.Add(new SQLiteParameter("@Name", data.Name != null ? data.Name : ""));
+                    command.Parameters.Add(new SQLiteParameter("@Description", data.Description != null ? data.Description : ""));
+                    command.Parameters.Add(new SQLiteParameter("@IpAddress", data.IpAddress != null ? data.IpAddress : ""));
+                    command.Parameters.Add(new SQLiteParameter("@SubnetMask", data.SubnetMask != null ? data.SubnetMask : ""));
+                    command.Parameters.Add(new SQLiteParameter("@Gateway", data.Gateway != null ? data.Gateway : ""));
+                    command.Parameters.Add(new SQLiteParameter("@DHCPServer", data.DHCPServer != null ? data.DHCPServer : ""));
+                    command.Parameters.Add(new SQLiteParameter("@DNSServer1", data.DNSServer1 != null ? data.DNSServer1 : ""));
+                    command.Parameters.Add(new SQLiteParameter("@DNSServer2", data.DNSServer2 != null ? data.DNSServer2 : ""));
                     object obj = command.ExecuteScalar();
                     data.Id = (long)obj;
 
@@ -208,7 +215,7 @@ namespace Model
                 con.Open();
                 using (SQLiteCommand command = new SQLiteCommand(con))
                 {
-                    command.CommandText = "update AdapterConfiguration set Group=@Group,Name=@Name, Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway where Id=@Id; " + "";
+                    command.CommandText = "update AdapterConfiguration set Group=@Group,Name=@Name, Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway, DHCPServer=@DHCPServer, DNSServer1=@DNSServer1, DNSServer2=@DNSServer2 where Id=@Id; " + "";
                     command.CommandType = System.Data.CommandType.Text;
                     command.Parameters.Add(new SQLiteParameter("@Id", data.Id));
                     command.Parameters.AddWithValue("@Group", data.Group);
@@ -217,6 +224,9 @@ namespace Model
                     command.Parameters.AddWithValue("@IpAddress", data.IpAddress);
                     command.Parameters.AddWithValue("@SubnetMask", data.SubnetMask);
                     command.Parameters.AddWithValue("@Gateway", data.Gateway);
+                    command.Parameters.AddWithValue("@DHCPServer", data.DHCPServer);
+                    command.Parameters.AddWithValue("@DNSServer1", data.DNSServer1);
+                    command.Parameters.AddWithValue("@DNSServer2", data.DNSServer2);
                     status = command.ExecuteNonQuery();
                 }
                 con.Close();

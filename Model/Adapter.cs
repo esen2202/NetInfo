@@ -16,6 +16,10 @@ namespace Model
         public string SubnetMask { get; set; }
         public string Gateway { get; set; }
 
+        public string DHCPServer { get; set; }
+        public string DNSServer1 { get; set; }
+        public string DNSServer2 { get; set; }
+
         public override string ToString()
         {
             return "[" + Name + "] " + IpAddress.ToString() + " - " + SubnetMask.ToString() + " - " + Gateway.ToString();

@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:NetAda.UC"             
              xmlns:converters="clr-namespace:NetAda.Converters"
+             xmlns:extensions="using:Microsoft.Toolkit.Uwp.UI.Extensions"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="329" >
+             Name="_this"
+             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="383.408" >
     <Grid>
         <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0" Width="318" CornerRadius="10" >
             <StackPanel>
@@ -17,31 +19,143 @@
                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Foreground="#DDFFB900" />
                 </DockPanel>
 
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="3*" />
-                        <ColumnDefinition Width="2*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                <DockPanel Grid.ColumnSpan="3" Margin="10">
+                    <ComboBox ItemsSource="{Binding ListAdapterConfiguration}" Text="Select Configuration" Padding="10 0 10 0"
+                              Foreground="Wheat" Width="250" Height="30" Background="#FF1D364F"
+                              SelectedItem="{Binding CurrentAdapterConfiguration}">
 
-                    <DockPanel Grid.ColumnSpan="3">
-                        <ComboBox ItemsSource="{Binding ListAdapterConfiguration}" DisplayMemberPath="Name" 
-                                  Foreground="Wheat" Width="100" Height="30" Background="#FF1D364F">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Group,StringFormat=' {0} |'}" Foreground="#FF8BFF00" />
+                                    <TextBlock Text="{Binding Name,StringFormat=' {0} | '}" />
+                                    <TextBlock Text="{Binding IpAddress,StringFormat=' {0} '}" Foreground="#FF8BFF00" />
+                                </StackPanel>
+                            </DataTemplate>
+
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </DockPanel>
+
+                <DockPanel DataContext="{Binding CurrentAdapterConfiguration}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Grid.Column="0" Grid.Row="0">
+                            <TextBlock Text="Ip Address"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="0"  >
+                            <TextBlock  Text="{Binding IpAddress,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="Subnet Mask"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="1"  >
+                            <TextBlock    Text="{Binding SubnetMask,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="2">
+                            <TextBlock Text="Gateway"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="2"  >
+                            <TextBlock    Text="{Binding Gateway,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="3">
+                            <TextBlock Text="DNS Server 1"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="3"  >
+                            <TextBlock    Text="{Binding DNSServer1,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="4">
+                            <TextBlock Text="DNS Server 2"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="4"  >
+                            <TextBlock    Text="{Binding DNSServer2,FallbackValue='0.0.0.0'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+                    </Grid>
+                </DockPanel>
 
 
-                        </ComboBox>
-                    </DockPanel>
+                <DockPanel DataContext="{Binding CurrentAdapterConfiguration}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="35"/>
+                        </Grid.RowDefinitions>
 
-                </Grid>
+                        <DockPanel Grid.Column="0" Grid.Row="0">
+                            <TextBlock Text="Ip Address"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="0"  >
+                            <TextBox  Text="{Binding IpAddress ,Mode=TwoWay,FallbackValue='0.0.0.0'}"   Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="1">
+                            <TextBlock Text="Subnet Mask"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="1"  >
+                            <TextBox    Text="{Binding SubnetMask ,Mode=TwoWay, FallbackValue='0.0.0.0'}" Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="2">
+                            <TextBlock Text="Gateway"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="2"  >
+                            <TextBox    Text="{Binding Gateway ,Mode=TwoWay,FallbackValue='0.0.0.0'}" Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="3">
+                            <TextBlock Text="DNS Server 1"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="3"  >
+                            <TextBox    Text="{Binding DNSServer1 ,Mode=TwoWay,FallbackValue='0.0.0.0'}" Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="0" Grid.Row="4">
+                            <TextBlock Text="DNS Server 2"  VerticalAlignment="Center"
+                                       Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
+                        </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="4"  >
+                            <TextBox    Text="{Binding DNSServer2 ,Mode=TwoWay,FallbackValue='0.0.0.0'}" Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                        </DockPanel>
+
+                        <DockPanel Grid.Column="1" Grid.Row="5"  >
+                            <Button Content="Add" Command="{Binding DataContext.AddConfigurationCommand,ElementName=_this}" CommandParameter="{Binding}" VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66" Click="ButtonBase_OnClick"/>
+                        </DockPanel>
+
+
+                    </Grid>
+                </DockPanel>
             </StackPanel>
 
         </Border>

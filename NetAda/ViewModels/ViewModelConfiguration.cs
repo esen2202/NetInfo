@@ -1,10 +1,9 @@
 ﻿using Model;
+using NetAda.Commands.Generic;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NetAda.ViewModels
 {
@@ -45,16 +44,18 @@ namespace NetAda.ViewModels
         {
             ListAdapterConfiguration = new ObservableCollection<AdapterConfiguration>();
 
-            //var listRecords = configurationDB.ListRecords();
+            var listRecords = configurationDB.ListRecords();
 
-            //listRecords.ForEach(record =>
-            //{
-            //    ListAdapterConfiguration.Add(record);
-            //});
+            listRecords.ForEach(record =>
+            {
+                ListAdapterConfiguration.Add(record);
+            });
 
-            //ListAdapterConfiguration = new ObservableCollection<AdapterConfiguration>(ListAdapterConfiguration.OrderByDescending(x => x.Group));
+            ListAdapterConfiguration = new ObservableCollection<AdapterConfiguration>(ListAdapterConfiguration.OrderByDescending(x => x.Group));
 
-            ListAdapterConfiguration = CreateListAdapterConfigurations();
+            CurrentAdapterConfiguration = new AdapterConfiguration();
+            
+            //ListAdapterConfiguration = CreateListAdapterConfigurations();
         }
 
         private ObservableCollection<AdapterConfiguration> CreateListAdapterConfigurations()
@@ -68,7 +69,7 @@ namespace NetAda.ViewModels
                 },
                 new AdapterConfiguration()
                 {
-                    Id = 2, Group =  "Home",Name =  "Home Conf2", Description = "Home Description2" ,IpAddress = "192.168.2.10", SubnetMask = "255.255.0.0", Gateway = "192.168.2.1"
+                    Id = 2, Group =  "Home",Name =  "Home Conf2", Description = "Home Description2" ,IpAddress = "192.168.2.10", SubnetMask = "255.255.0.0", Gateway = "192.168.2.1",DNSServer2 = "192.0.0.1",DNSServer1 = "8.8.4.4"
                 },
                 new AdapterConfiguration()
                 {
@@ -76,5 +77,34 @@ namespace NetAda.ViewModels
                 }
             };
         }
+
+        #region ICommand
+        private ICommand _addConfigurationCommand;
+        public ICommand AddConfigurationCommand
+        {
+            get
+            {
+                if (_addConfigurationCommand == null)
+                {
+                    _addConfigurationCommand = new RelayCommand(
+                        p => true,
+                        p => AddConfiguration(p));
+                }
+                return _addConfigurationCommand;
+            }
+        }
+
+        private void AddConfiguration(object p)
+        {
+            if (p != null)
+            {
+                var obj = p as AdapterConfiguration;
+                configurationDB.AddRecord(ref obj);
+
+            }
+        }
+
+
+        #endregion
     }
 }
