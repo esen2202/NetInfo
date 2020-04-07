@@ -54,7 +54,7 @@ namespace Model
                     if (name != null && name.ToString() == "AdapterConfiguration")
                         return;
                     // acount table not exist, create table and insert 
-                    command.CommandText = "CREATE TABLE `AdapterConfiguration` ( `Id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,`Group` TEXT,`Name` TEXT NOT NULL, `Description` TEXT, `IpAddress` TEXT NOT NULL, `SubnetMask` TEXT NOT NULL, `Gateway` TEXT, `DHCPServer` TEXT, `DNSServer1` TEXT, `DNSServer2` TEXT)";
+                    command.CommandText = "CREATE TABLE `AdapterConfiguration` ( `Id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,`GroupName` TEXT,`Name` TEXT NOT NULL, `Description` TEXT, `IpAddress` TEXT NOT NULL, `SubnetMask` TEXT NOT NULL, `Gateway` TEXT, `DHCPServer` TEXT, `DNSServer1` TEXT, `DNSServer2` TEXT)";
                     command.ExecuteNonQuery();
                 }
                 con.Close();
@@ -128,7 +128,7 @@ namespace Model
                         dbAdapterList.Add(new AdapterConfiguration
                         {
                             Id = Convert.ToInt32(reader["Id"]),
-                            Group = (string)reader["Group"],
+                            GroupName = (string)reader["GroupName"],
                             Name = (string)reader["Name"],
                             Description = (string)reader["Description"],
                             IpAddress = (string)reader["IpAddress"],
@@ -158,11 +158,11 @@ namespace Model
                 con.Open();
                 using (SQLiteCommand command = new SQLiteCommand(con))
                 {
-                    command.CommandText = "insert into AdapterConfiguration (Group,Name,Description,IpAddress,SubnetMask,Gateway,DHCPServer,DNSServer1,DNSServer2) " +
-                                          "values(@Group,@Name,@Description,@IpAddress,@SubnetMask,@Gateway,@DHCPServer,@DNSServer1,@DNSServer2); " +
+                    command.CommandText = "insert into AdapterConfiguration (GroupName,Name,Description,IpAddress,SubnetMask,Gateway,DHCPServer,DNSServer1,DNSServer2) " +
+                                          "values(@GroupName,@Name,@Description,@IpAddress,@SubnetMask,@Gateway,@DHCPServer,@DNSServer1,@DNSServer2); " +
                         "select last_insert_rowid();";
                     command.CommandType = System.Data.CommandType.Text;
-                    command.Parameters.Add(new SQLiteParameter("@Group", data.Group!=null?data.Group:""));
+                    command.Parameters.Add(new SQLiteParameter("@GroupName", data.GroupName != null ? data.GroupName : ""));
                     command.Parameters.Add(new SQLiteParameter("@Name", data.Name != null ? data.Name : ""));
                     command.Parameters.Add(new SQLiteParameter("@Description", data.Description != null ? data.Description : ""));
                     command.Parameters.Add(new SQLiteParameter("@IpAddress", data.IpAddress != null ? data.IpAddress : ""));
@@ -215,10 +215,10 @@ namespace Model
                 con.Open();
                 using (SQLiteCommand command = new SQLiteCommand(con))
                 {
-                    command.CommandText = "update AdapterConfiguration set Group=@Group,Name=@Name, Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway, DHCPServer=@DHCPServer, DNSServer1=@DNSServer1, DNSServer2=@DNSServer2 where Id=@Id; " + "";
+                    command.CommandText = "update AdapterConfiguration set GroupName=@GroupName,Name=@Name, Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway, DHCPServer=@DHCPServer, DNSServer1=@DNSServer1, DNSServer2=@DNSServer2 where Id=@Id; " + "";
                     command.CommandType = System.Data.CommandType.Text;
                     command.Parameters.Add(new SQLiteParameter("@Id", data.Id));
-                    command.Parameters.AddWithValue("@Group", data.Group);
+                    command.Parameters.AddWithValue("@GroupName", data.GroupName);
                     command.Parameters.AddWithValue("@Name", data.Name);
                     command.Parameters.AddWithValue("@Description", data.Description);
                     command.Parameters.AddWithValue("@IpAddress", data.IpAddress);

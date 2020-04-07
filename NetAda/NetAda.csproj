@@ -90,6 +90,7 @@
     </ApplicationDefinition>
     <Compile Include="Classes\BindProcess.cs" />
     <Compile Include="Classes\NotifyIconViewModel.cs" />
+    <Compile Include="Classes\Validations\AgeRangeRule.cs" />
     <Compile Include="Converters\Formatter.cs" />
     <Compile Include="Commands\Generic\RelayCommand.cs" />
     <Compile Include="Converters\MacAddressConverter.cs" />
@@ -110,6 +111,10 @@
       <DependentUpon>NetListItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Page Include="Assets\AppStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Classes\NotifyIconResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

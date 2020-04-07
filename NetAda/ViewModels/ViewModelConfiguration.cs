@@ -51,7 +51,7 @@ namespace NetAda.ViewModels
                 ListAdapterConfiguration.Add(record);
             });
 
-            ListAdapterConfiguration = new ObservableCollection<AdapterConfiguration>(ListAdapterConfiguration.OrderByDescending(x => x.Group));
+            ListAdapterConfiguration = new ObservableCollection<AdapterConfiguration>(ListAdapterConfiguration.OrderByDescending(x => x.GroupName));
 
             CurrentAdapterConfiguration = new AdapterConfiguration();
             
@@ -65,15 +65,15 @@ namespace NetAda.ViewModels
             {
                 new AdapterConfiguration()
                 {
-                   Id = 1, Group =  "Home",Name =  "Home Conf1", Description = "Home Description1" ,IpAddress = "192.168.0.10", SubnetMask = "255.255.255.0", Gateway = "192.168.0.1"
+                   Id = 1, GroupName =  "Home",Name =  "Home Conf1", Description = "Home Description1" ,IpAddress = "192.168.0.10", SubnetMask = "255.255.255.0", Gateway = "192.168.0.1"
                 },
                 new AdapterConfiguration()
                 {
-                    Id = 2, Group =  "Home",Name =  "Home Conf2", Description = "Home Description2" ,IpAddress = "192.168.2.10", SubnetMask = "255.255.0.0", Gateway = "192.168.2.1",DNSServer2 = "192.0.0.1",DNSServer1 = "8.8.4.4"
+                    Id = 2, GroupName =  "Home",Name =  "Home Conf2", Description = "Home Description2" ,IpAddress = "192.168.2.10", SubnetMask = "255.255.0.0", Gateway = "192.168.2.1",DNSServer2 = "192.0.0.1",DNSServer1 = "8.8.4.4"
                 },
                 new AdapterConfiguration()
                 {
-                    Id = 2, Group =  "Work",Name =  "Work Conf1", Description = "Work Description1" ,IpAddress = "10.10.2.10", SubnetMask = "255.255.0.0", Gateway = "10.10.2.1"
+                    Id = 2, GroupName =  "Work",Name =  "Work Conf1", Description = "Work Description1" ,IpAddress = "10.10.2.10", SubnetMask = "255.255.0.0", Gateway = "10.10.2.1"
                 }
             };
         }
@@ -88,7 +88,11 @@ namespace NetAda.ViewModels
                 {
                     _addConfigurationCommand = new RelayCommand(
                         p => true,
-                        p => AddConfiguration(p));
+                        p =>
+                        {
+                            AddConfiguration(p);
+                            //GetAdapterConfigurationList();
+                        });
                 }
                 return _addConfigurationCommand;
             }
@@ -99,12 +103,71 @@ namespace NetAda.ViewModels
             if (p != null)
             {
                 var obj = p as AdapterConfiguration;
+
                 configurationDB.AddRecord(ref obj);
 
             }
         }
 
+        private ICommand _updateConfigurationCommand;
+        public ICommand UpdateConfigurationCommand
+        {
+            get
+            {
+                if (_updateConfigurationCommand == null)
+                {
+                    _updateConfigurationCommand = new RelayCommand(
+                        p => true,
+                        p =>
+                        {
+                            UpdateConfiguration(p);
+                            //GetAdapterConfigurationList();
+                        });
+                }
+                return _addConfigurationCommand;
+            }
+        }
 
+        private void UpdateConfiguration(object p)
+        {
+            if (p != null)
+            {
+                var obj = p as AdapterConfiguration;
+
+                configurationDB.UpdateRecord(obj);
+
+            }
+        }
+
+        private ICommand _deleteConfigurationCommand;
+        public ICommand DeleteConfigurationCommand
+        {
+            get
+            {
+                if (_deleteConfigurationCommand == null)
+                {
+                    _deleteConfigurationCommand = new RelayCommand(
+                        p => true,
+                        p =>
+                        {
+                            DeleteConfiguration(p);
+                            //GetAdapterConfigurationList();
+                        });
+                }
+                return _addConfigurationCommand;
+            }
+        }
+
+        private void DeleteConfiguration(object p)
+        {
+            if (p != null)
+            {
+                var obj = p as AdapterConfiguration;
+
+                configurationDB.DeleteRecord(obj.Id);
+
+            }
+        }
         #endregion
     }
 }

@@ -52,7 +52,7 @@
 
                         </StackPanel>
                     </Border>
-                    <uc:NewConfiguration Grid.Row="1"></uc:NewConfiguration>
+                    <uc:NewConfiguration Grid.Row="1" ></uc:NewConfiguration>
                 </Grid>
 
             </Border>
