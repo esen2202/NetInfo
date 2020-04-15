@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2046
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29926.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetInfo", "NetInfo\NetInfo.csproj", "{B6E909B5-CB68-4151-9ECD-BCE88074F365}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{4D3E9D68-23D4-49CC-AD63-936ECB631E0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{7850B5DC-5D5B-49EB-93C9-71C597794454}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSetTestUI", "NetSetTestUI\NetSetTestUI.csproj", "{665F07FD-57D8-43A1-B746-71C3AD03BC6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7850B5DC-5D5B-49EB-93C9-71C597794454}.Release|Any CPU.Build.0 = Release|Any CPU
+		{665F07FD-57D8-43A1-B746-71C3AD03BC6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{665F07FD-57D8-43A1-B746-71C3AD03BC6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{665F07FD-57D8-43A1-B746-71C3AD03BC6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{665F07FD-57D8-43A1-B746-71C3AD03BC6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

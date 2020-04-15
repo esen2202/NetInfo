@@ -24,10 +24,6 @@ namespace Model
             CheckDB();
         }
 
-        /// <summary>
-        /// if not exist db file => create db file
-        /// </summary>
-        /// <param name="dbName"></param>
         public void CheckDB()
         {
             if (!File.Exists(dbName))
@@ -35,9 +31,6 @@ namespace Model
             CreateTables();
         }
 
-        /// <summary>
-        /// SQLite create tables if no exist tables 
-        /// </summary>
         public void CreateTables()
         {
             using (SQLiteConnection con = new SQLiteConnection("Data Source=" + dbName))
@@ -61,11 +54,6 @@ namespace Model
             }
         }
 
-        /// <summary>
-        /// SQLite Check Exist Records in VpnName Column by Same Name
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <returns></returns>
         public bool IsThereRecord(string Name)
         {
             using (SQLiteConnection con = new SQLiteConnection("Data Source=" + dbName))
@@ -85,11 +73,6 @@ namespace Model
             return false;
         }
 
-        /// <summary>
-        /// SQLite Check Exist Records in VpnName Column by Same Name Expect Id
-        /// </summary>
-        /// <param name="Name"></param>
-        /// <returns></returns>
         public bool IsThereRecord(string Name, long Id)
         {
             using (SQLiteConnection con = new SQLiteConnection("Data Source=" + dbName))
@@ -109,10 +92,6 @@ namespace Model
             return false;
         }
 
-        /// <summary>
-        /// SQLite Get All Records
-        /// </summary>
-        /// <returns></returns>
         public List<AdapterConfiguration> ListRecords()
         {
             List<AdapterConfiguration> dbAdapterList = new List<AdapterConfiguration>();
@@ -145,11 +124,6 @@ namespace Model
             return dbAdapterList;
         }
 
-        /// <summary>
-        /// SQLite Insert Record
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns></returns>
         public void AddRecord(ref AdapterConfiguration data)
         {
 
@@ -180,11 +154,6 @@ namespace Model
 
         }
 
-        /// <summary>
-        /// SQLite Delete Record
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>-1 an Error</returns>
         public int DeleteRecord(long id)
         {
             int status;
@@ -201,11 +170,6 @@ namespace Model
             return status;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="data"></param>
-        /// <returns>-1 an Error</returns>
         public int UpdateRecord(AdapterConfiguration data)
         {
             int status;
@@ -215,7 +179,10 @@ namespace Model
                 con.Open();
                 using (SQLiteCommand command = new SQLiteCommand(con))
                 {
-                    command.CommandText = "update AdapterConfiguration set GroupName=@GroupName,Name=@Name, Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway, DHCPServer=@DHCPServer, DNSServer1=@DNSServer1, DNSServer2=@DNSServer2 where Id=@Id; " + "";
+                    command.CommandText = "update AdapterConfiguration set GroupName=@GroupName,Name=@Name, " +
+                        "Description=@Description, IpAddress=@IpAddress, SubnetMask=@SubnetMask, Gateway=@Gateway, " +
+                        "DHCPServer=@DHCPServer, DNSServer1=@DNSServer1, DNSServer2=@DNSServer2 where Id=@Id; " + "";
+
                     command.CommandType = System.Data.CommandType.Text;
                     command.Parameters.Add(new SQLiteParameter("@Id", data.Id));
                     command.Parameters.AddWithValue("@GroupName", data.GroupName);

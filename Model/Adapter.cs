@@ -24,6 +24,11 @@ namespace Model
         {
             return "[" + Name + "] " + IpAddress.ToString() + " - " + SubnetMask.ToString() + " - " + Gateway.ToString();
         }
+
+        public AdapterConfiguration Clone()
+        {
+            return this.MemberwiseClone() as AdapterConfiguration;
+        }
     }
 
 }

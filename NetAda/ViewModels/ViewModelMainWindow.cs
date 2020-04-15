@@ -75,7 +75,7 @@ namespace NetAda.ViewModels
             ListAdapter = new ObservableCollection<AdapterObject>(ListAdapter.OrderByDescending(x => x.IsOperationalStatusUp));
 
 
-            if(CurrentAdapter == null ) CurrentAdapter = ListAdapter.FirstOrDefault();
+            if (CurrentAdapter == null) CurrentAdapter = ListAdapter.FirstOrDefault();
         }
 
         #region ICommand
@@ -87,7 +87,6 @@ namespace NetAda.ViewModels
                 if (_selectNetAdaptCommand == null)
                 {
                     _selectNetAdaptCommand = new RelayCommand(
-                    p => true,
                     p => this.SelectedAdapter(p));
                 }
                 return _selectNetAdaptCommand;
@@ -111,7 +110,6 @@ namespace NetAda.ViewModels
                 if (_refreshExecuteCommand == null)
                 {
                     _refreshExecuteCommand = new RelayCommand(
-                        p => true,
                         p =>
                         {
                             this.RefreshAdapters();
@@ -132,7 +130,6 @@ namespace NetAda.ViewModels
                 if (_closeWindowCommand == null)
                 {
                     _closeWindowCommand = new RelayCommand(
-                        p => true,
                         p => Application.Current.Shutdown());
                 }
                 return _closeWindowCommand;
@@ -147,8 +144,8 @@ namespace NetAda.ViewModels
 
         private void RefreshSpeed()
         {
-            if(adapterInfo !=null && CurrentAdapter != null)
-            adapterInfo.RefreshAdapterSpeed(ref _currentAdapter);
+            if (adapterInfo != null && CurrentAdapter != null)
+                adapterInfo.RefreshAdapterSpeed(ref _currentAdapter);
         }
 
         public static string GetPublicIp()
@@ -178,7 +175,7 @@ namespace NetAda.ViewModels
                 return "";
 
             }
-            
+
         }
     }
 

@@ -31,7 +31,7 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel HorizontalAlignment="Right" Grid.Column="1" >
-            <Border Name="borderConfiguration" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#E5004E93"
+            <Border Name="borderConfiguration" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#E1004E93"
                     MouseLeave="BorderSideBar_OnMouseLeave">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -60,7 +60,7 @@
 
         <DockPanel HorizontalAlignment="Right" Grid.Column="2">
 
-            <Border Name="borderSideBar" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#E50D3253"
+            <Border Name="borderSideBar" Width="320"  VerticalAlignment="Stretch" HorizontalAlignment="Right" Background="#EA0D3253"
                     MouseLeave="BorderSideBar_OnMouseLeave">
                 <Grid Name="LayoutRoot">
                     <Grid.RowDefinitions>

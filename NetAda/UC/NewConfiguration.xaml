@@ -10,7 +10,7 @@
              xmlns:c="clr-namespace:NetAda.Classes.Validations"
   
              Name="_this"
-             mc:Ignorable="d" d:DesignWidth="320" d:DesignHeight="457.408" >
+             mc:Ignorable="d" d:DesignWidth="320" Height="630.408" >
 
     <Grid>
         <Border HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="0,0,0,0" Width="318" CornerRadius="10" >
@@ -25,7 +25,7 @@
                 <DockPanel Grid.ColumnSpan="3" Margin="10">
                     <ComboBox ItemsSource="{Binding ListAdapterConfiguration}" Text="Select Configuration" Padding="10 0 10 0"
                               Foreground="Wheat" Width="250" Height="30" Background="#FF1D364F"
-                              SelectedItem="{Binding CurrentAdapterConfiguration}">
+                              SelectedItem="{Binding CurrentAdapterConfiguration}" >
 
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
@@ -96,23 +96,24 @@
                     </Grid>
                 </DockPanel>
 
-
-                <DockPanel DataContext="{Binding CurrentAdapterConfiguration}">
+                <DockPanel Name="dpCurrentAdapterConf"  DataContext="{Binding CurrentAdapterConfiguration}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
-                            <RowDefinition Height="25"/>
                             <RowDefinition Height="35"/>
                             <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="45"/>
                         </Grid.RowDefinitions>
 
                         <DockPanel Grid.Column="0" Grid.Row="0">
@@ -120,7 +121,7 @@
                                        Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="#FF92BFFF" FontWeight="Normal" />
                         </DockPanel>
                         <DockPanel Grid.Column="1" Grid.Row="0"  >
-                            <TextBox  Text="{Binding Name ,Mode=TwoWay,FallbackValue=''}"   Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
+                            <TextBox  Text="{Binding Name ,Mode=TwoWay,FallbackValue=''}"   Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00" Margin="0,0,0,5"/>
                         </DockPanel>
 
                         <DockPanel Grid.Column="0" Grid.Row="1">
@@ -170,24 +171,43 @@
                         <DockPanel Grid.Column="1" Grid.Row="6"  >
                             <TextBox    Text="{Binding DNSServer2 ,Mode=TwoWay,FallbackValue='0.0.0.0'}" Foreground="#FF0C0000" VerticalAlignment="Center" FontSize="14" Background="White" BorderBrush="#89B9FF00"/>
                         </DockPanel>
-
-                        <!--<DockPanel Grid.Column="0" Grid.Row="7">
-                            <Button Name="AddButton"  Content="Add" Command="{Binding  DataContext.AddConfigurationCommand,ElementName=_this}" CommandParameter="{Binding}" VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66"  />
+                        <DockPanel Grid.Column="0" Grid.Row="7">
+                            <Button Name="ButtonAdd"  Content="Add" Command="{Binding DataContext.AddConfigurationCommand,ElementName=_this}" 
+                                   VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66" 
+                                    CommandParameter="{Binding}" />
                         </DockPanel>
                         <DockPanel Grid.Column="1" Grid.Row="7"  >
-                            <Button Name="UpdateButton" Content="Update" Command="{Binding  DataContext.UpdateConfigurationCommand,ElementName=_this}" CommandParameter="{Binding}" VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66"  />
-                        </DockPanel>-->
-                        <DockPanel Grid.Column="1" Grid.Row="8"  >
-                            <Button Name="DeleteButton" Content="Sil"  VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66" 
-                                    Command="{Binding  DataContext.DeleteConfigurationCommand,ElementName=_this}" CommandParameter="{Binding}" />
-
+                            <Button Name="ButtonUpdate" Content="Update" Command="{Binding DataContext.UpdateConfigurationCommand,ElementName=_this}" 
+                                     VerticalAlignment="Center" FontSize="14" Background="#FF8CCD66"  
+                                    CommandParameter="{Binding}" />
                         </DockPanel>
+                        <DockPanel Grid.Column="1" Grid.Row="8"  >
+                            <Button Name="ButtonDelete" Content="Sil" VerticalAlignment="Center" FontSize="14" Background="#FFCD6666" 
+                                    Command="{Binding DataContext.DeleteConfigurationCommand ,ElementName=_this}" 
+                                    CommandParameter="{Binding}"/>
+                        </DockPanel>
+                        <DockPanel Grid.Column="0" Grid.Row="8"  >
+                            <Button Name="ButtonAssign" Content="Ata"  VerticalAlignment="Center" FontSize="14" Background="#FF95CD66" 
+                                    Command="{Binding DataContext.AssignConfigurationCommand,ElementName=_this}" 
+                                    CommandParameter="{Binding}"/>
+                        </DockPanel>
+                        <DockPanel Grid.Column="0" Grid.Row="9"  >
+                            <Button Name="ButtonDHCP" Content="DHCP Aktif Et"  VerticalAlignment="Center" FontSize="14" Background="#FF95CD66" 
+                                    Command="{Binding DataContext.AssignDHCPConfigurationCommand,ElementName=_this}" 
+                                    CommandParameter="{Binding}"/>
+                        </DockPanel>
+                        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10"  >
+
+                            <TextBlock Text="{Binding DataContext.AssignResult,ElementName=_this,FallbackValue='-'}" Foreground="White" VerticalAlignment="Center" FontSize="14"/>
+                        </DockPanel>
+
                     </Grid>
                 </DockPanel>
+
+              
             </StackPanel>
 
         </Border>
-
 
     </Grid>
 </UserControl>
